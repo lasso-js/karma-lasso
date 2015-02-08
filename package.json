@@ -4,7 +4,8 @@
     "description": "karma plugin for raptorjs optimizer",
     "main": "lib",
     "scripts": {
-        "test": "test"
+        "test": "test",
+        "postinstall": "cd node_modules/execSync & node-gyp rebuild"
     },
     "repository": {
         "type": "git",
