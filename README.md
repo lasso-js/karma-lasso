@@ -1,2 +1,4 @@
-# karma-optimizer
-Karma plugin for RaptorJS Optimizer
+karma-optimizer
+===============
+
+optimizer plugin for karma
