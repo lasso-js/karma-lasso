@@ -287,13 +287,16 @@ directory</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    config.files.length = <span class="hljs-number">0</span>;
+            <div class="content"><div class='highlight'><pre>    config.files.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(oneFile)</span> </span>{
+        oneFile.included = <span class="hljs-literal">false</span>;
+        oneFile.served = <span class="hljs-literal">false</span>;
+    });
     config.files.push.apply(config.files, fs.readJsonSync(outputPath).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(path)</span> </span>{
         <span class="hljs-keyword">return</span> { 
             pattern: path,
             served: <span class="hljs-literal">true</span>,
             included: <span class="hljs-literal">true</span>,
-            watched: <span class="hljs-literal">true</span>
+            watched: <span class="hljs-literal">false</span>
         };
     }));
 };
