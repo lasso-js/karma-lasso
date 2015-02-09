@@ -75,7 +75,7 @@ module.exports = function (config) {
 ``` javascript
 // karma.conf.js
 module.exports = function (config) {
-    config.set({    
+    config.set({
         browsers: [
             'PhantomJS'
         ],
@@ -119,4 +119,5 @@ module.exports = function (config) {
                 ]
             }
         }
+    });
     ```
