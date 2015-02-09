@@ -32,6 +32,7 @@ module.exports = function(grunt) {
     // loading the npm task
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-docco');
+    grunt.loadNpmTasks('grunt-gh-pages');
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),

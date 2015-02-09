@@ -2,22 +2,30 @@
 
 > Karma Plugin for [RaptorJS Optimizer](https://github.com/raptorjs/optimizer).
 
+
 ## Installation
 
 The easiest way is to keep `karma-optimizer` as a devDependency in your `package.json`.
+
 ```json
+
 {
   "devDependencies": {
     "karma": "~0.10",
-    "karma-optimizer": "~0.1"
+    "karma-optimizer": "^0.0"
   }
 }
+
 ```
 
 or you can simply do it by:
+
 ```bash
+
 npm install karma-optimizer --save-dev
+
 ```
+
 
 ## Configuration
 
@@ -26,6 +34,7 @@ The basic configuration for karma-optimizer is detailed below:
 ### For Simple karma testing
 
 ``` javascript
+
 // karma.conf.js
 module.exports = function (config) {
     config.set({
@@ -67,7 +76,9 @@ module.exports = function (config) {
         ]
     });
 };
+
 ```
+
 
 ### For karma testing and coverage reports
 
@@ -120,4 +131,5 @@ module.exports = function (config) {
             }
         }
     });
+    
     ```
