@@ -4,7 +4,7 @@
     "description": "karma plugin for raptorjs optimizer",
     "main": "lib",
     "scripts": {
-        "test": "test",
+        "test": "grunt test",
         "postinstall": "cd node_modules/execSync & node-gyp rebuild"
     },
     "repository": {
@@ -22,6 +22,12 @@
         "optimizer": "^1.7.0",
         "optimizer-require": "^1.3.2",
         "browserify-istanbul": "^0.1.4"
+    },
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-contrib-jshint": "^0.11.0",
+        "grunt-docco": "^0.3.3",
+        "grunt-gh-pages": "^0.9"
     },
     "keywords": [
         "karma",
