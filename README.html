@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="README.html">
+                README.md
+              </a>
+            
+              
+              <a class="source" href="framework.html">
+                framework.js
+              </a>
+            
+              
+              <a class="source" href="optimizer-command.html">
+                optimizer-command.js
+              </a>
+            
+              
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
+              <a class="source" href="reporter.html">
+                reporter.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>README.md</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p><a href="https://travis-ci.org/pranavjha/karma-optimizer"><img src="https://travis-ci.org/pranavjha/karma-optimizer.svg" alt="Build Status"></a>
+<a href="https://codeclimate.com/github/pranavjha/karma-optimizer"><img src="https://codeclimate.com/github/pranavjha/karma-optimizer/badges/gpa.svg" alt="Code Climate"></a></p>
+<p><a href="https://david-dm.org/pranavjha/karma-optimizer"><img src="https://david-dm.org/pranavjha/karma-optimizer.svg" alt="Dependency Status"></a>
+<a href="https://david-dm.org/pranavjha/karma-optimizer#info=devDependencies"><img src="https://david-dm.org/pranavjha/karma-optimizer/dev-status.svg" alt="devDependency Status"></a>
+<a href="https://david-dm.org/pranavjha/karma-optimizer#info=peerDependencies"><img src="https://david-dm.org/pranavjha/karma-optimizer/peer-status.svg" alt="peerDependency Status"></a></p>
+<h1 id="karma-optimizer">karma-optimizer</h1>
+<blockquote>
+<p>Karma Plugin for <a href="https://github.com/raptorjs/optimizer">RaptorJS Optimizer</a>.</p>
+</blockquote>
+<h2 id="installation">Installation</h2>
+<p>The easiest way is to keep <code>karma-optimizer</code> as a devDependency in your <code>package.json</code>.</p>
+<pre><code class="lang-json">
+{
+"<span class="hljs-attribute">devDependencies</span>": <span class="hljs-value">{
+"<span class="hljs-attribute">karma</span>": <span class="hljs-value"><span class="hljs-string">"~0.10"</span></span>,
+"<span class="hljs-attribute">karma-optimizer</span>": <span class="hljs-value"><span class="hljs-string">"^0.0"</span>
+</span>}
+</span>}
+</code></pre>
+<p>or you can simply do it by:</p>
+<pre><code class="lang-bash">
+npm install karma-optimizer --save-dev
+</code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>The basic configuration for karma-optimizer is detailed below:</p>
+<h3 id="for-simple-karma-testing">For Simple karma testing</h3>
+<pre><code class="lang-javascript">
+<span class="hljs-comment">// karma.conf.js</span>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(config)</span> </span>{
+config.set({
+browsers: [
+<span class="hljs-string">'PhantomJS'</span>
+],
+reporters: [
+<span class="hljs-string">'mocha'</span>
+],
+<span class="hljs-comment">// 1. specify the config to be passed to optimizer in the optimizer key</span>
+optimizer: {
+plugins: [
+<span class="hljs-string">'i18n-ebay/optimizer/plugin'</span>,
+<span class="hljs-string">'optimizer-less'</span>,
+<span class="hljs-string">'optimizer-dust'</span>,
+],
+minify: <span class="hljs-literal">false</span>,
+bundlingEnabled: <span class="hljs-literal">false</span>,
+resolveCssUrls: <span class="hljs-literal">true</span>,
+cacheProfile: <span class="hljs-string">'development'</span>,
+<span class="hljs-comment">// 2. tempdir is the directory where all the generated files will be stored.</span>
+tempdir: <span class="hljs-string">'./.test'</span>
+},
+<span class="hljs-comment">// 3. optimizer should be added as a framework so that it can do bundling before tests</span>
+frameworks: [
+<span class="hljs-string">'optimizer'</span>,
+<span class="hljs-string">'mocha'</span>,
+<span class="hljs-string">'chai'</span>
+],
+<span class="hljs-comment">// 4. Only specify the main test file that requires the source files. karma-optimizer </span>
+<span class="hljs-comment">// will expand it and add all required files</span>
+files: [
+<span class="hljs-string">'./test/client/**/*.js'</span>
+],
+<span class="hljs-comment">// 5. Add karma-optimizer as a plugin</span>
+plugins: [
+<span class="hljs-comment">// .. other plugins</span>
+<span class="hljs-string">'karma-optimizer'</span>
+]
+});
+};
+</code></pre>
+<h3 id="for-karma-testing-and-coverage-reports">For karma testing and coverage reports</h3>
+<pre><code class="lang-javascript"><span class="hljs-comment">// karma.conf.js</span>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(config)</span> </span>{
+config.set({
+browsers: [
+<span class="hljs-string">'PhantomJS'</span>
+],
+<span class="hljs-comment">// 1. for generating coverage reports, add optimizer as a reporter in config</span>
+reporters: [
+<span class="hljs-string">'mocha'</span>,
+<span class="hljs-string">'optimizer'</span>
+],
+<span class="hljs-comment">// 2. specify the config to be passed to optimizer in the optimizer key</span>
+optimizer: {
+plugins: [
+<span class="hljs-string">'i18n-ebay/optimizer/plugin'</span>,
+<span class="hljs-string">'optimizer-less'</span>,
+<span class="hljs-string">'optimizer-dust'</span>,
+],
+minify: <span class="hljs-literal">false</span>,
+bundlingEnabled: <span class="hljs-literal">false</span>,
+resolveCssUrls: <span class="hljs-literal">true</span>,
+cacheProfile: <span class="hljs-string">'development'</span>,     
+<span class="hljs-comment">// 3. tempdir is the directory where all the generated files will be stored.</span>
+tempdir: <span class="hljs-string">'./.coverage'</span>,
+<span class="hljs-comment">// 4. to enable coverage, the coverage key should be added in the optimizer config </span>
+coverage: {
+<span class="hljs-comment">// 5. A string glob pattern or an array of patterns matching the files for which,</span>
+<span class="hljs-comment">// coverage report is to be generated </span>
+files: <span class="hljs-string">'src/**/*.js'</span>,
+<span class="hljs-comment">// 6. Specify the reporters to be used for coverage output. All Istanbul</span>
+<span class="hljs-comment">// reporters are supported. Reporters can be an object if there is only one.</span>
+<span class="hljs-comment">// Otherwise, you can pass an array. Each reporter will have a type and a dir </span>
+<span class="hljs-comment">// key. The report will be generated in the directory specified in the dir key</span>
+<span class="hljs-comment">// (one folder for each browser) </span>
+reporters: [
+{
+type: <span class="hljs-string">'json'</span>,
+dir: <span class="hljs-string">'./.coverage/json/'</span>
+},
+{
+type: <span class="hljs-string">'html'</span>,
+dir: <span class="hljs-string">'./.coverage/html-client/'</span>
+}
+]
+}
+}
+});
+</code></pre>
+
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
