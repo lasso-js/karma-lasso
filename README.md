@@ -1,4 +1,11 @@
-# karma-optimizer [![Build Status](https://travis-ci.org/pranavjha/karma-optimizer.svg)](https://travis-ci.org/pranavjha/karma-optimizer)
+[![Build Status](https://travis-ci.org/pranavjha/karma-optimizer.svg)](https://travis-ci.org/pranavjha/karma-optimizer)
+[![Code Climate](https://codeclimate.com/github/pranavjha/karma-optimizer/badges/gpa.svg)](https://codeclimate.com/github/pranavjha/karma-optimizer)
+
+[![Dependency Status](https://david-dm.org/pranavjha/karma-optimizer.svg)](https://david-dm.org/pranavjha/karma-optimizer)
+[![devDependency Status](https://david-dm.org/pranavjha/karma-optimizer/dev-status.svg)](https://david-dm.org/pranavjha/karma-optimizer#info=devDependencies)
+[![peerDependency Status](https://david-dm.org/pranavjha/karma-optimizer/peer-status.svg)](https://david-dm.org/pranavjha/karma-optimizer#info=peerDependencies)
+
+# karma-optimizer 
 
 > Karma Plugin for [RaptorJS Optimizer](https://github.com/raptorjs/optimizer).
 
@@ -10,10 +17,10 @@ The easiest way is to keep `karma-optimizer` as a devDependency in your `package
 ```json
 
 {
-  "devDependencies": {
-    "karma": "~0.10",
-    "karma-optimizer": "^0.0"
-  }
+    "devDependencies": {
+        "karma": "~0.10",
+        "karma-optimizer": "^0.0"
+    }
 }
 
 ```

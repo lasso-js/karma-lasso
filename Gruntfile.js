@@ -49,7 +49,8 @@ module.exports = function(grunt) {
         docco: {
             debug: {
                 src: [
-                    'lib/**'
+                    'lib/**',
+                    'README.md'
                 ],
                 options: {
                     output: '.docs/'
