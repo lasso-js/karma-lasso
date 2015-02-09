@@ -8,4 +8,4 @@ before_install:
 
 after_success:
     # run the coverage task and push the coverage report to coveralls
-  - "./node_modules/.bin/grunt document gh-pages"
+  - "grunt document gh-pages"
