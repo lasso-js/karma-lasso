@@ -1,6 +1,6 @@
 {
     "name": "karma-optimizer",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "karma plugin for raptorjs optimizer",
     "main": "lib",
     "scripts": {
@@ -18,7 +18,7 @@
         "istanbul": "^0",
         "through": "^2",
         "minimatch": "^2",
-        "chokidar": "^1"
+        "chokidar": "^1.0.0-rc3"
     },
     "peerDependencies": {
         "optimizer": "^1",
