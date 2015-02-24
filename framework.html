@@ -43,6 +43,16 @@
                 reporter.js
               </a>
             
+              
+              <a class="source" href="coverage.html">
+                coverage.js
+              </a>
+            
+              
+              <a class="source" href="watcher.html">
+                watcher.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -107,6 +117,12 @@ directory</p>
         outputDir: config.optimizer.tempdir + <span class="hljs-string">'/static'</span>,
         <span class="hljs-string">'url-prefix'</span>: <span class="hljs-string">'/static'</span>,
         fingerprintsEnabled: <span class="hljs-literal">false</span>
+    };
+    <span class="hljs-keyword">var</span> requirePlugin = {
+        plugin: <span class="hljs-string">'optimizer-require'</span>,
+        config: {
+            transforms: []
+        }
     };</pre></div></div>
             
         </li>
@@ -118,19 +134,12 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>include <code>browserify-istanbul</code> transform to instrument the code </p>
+              <p>include the autowatch transform if watch is true</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span>(config.optimizer.coverage) {
-        config.optimizer.plugins.push({
-            plugin: <span class="hljs-string">'optimizer-require'</span>,
-            config: {
-                transforms: [
-                    <span class="hljs-string">'browserify-istanbul'</span>
-                ]
-            }
-        });
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (config.autoWatch !== <span class="hljs-literal">false</span>) {
+        requirePlugin.config.transforms.push(<span class="hljs-string">'karma-optimizer/lib/transforms/watcher'</span>);
     }</pre></div></div>
             
         </li>
@@ -142,16 +151,13 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>normalize the files param to an array </p>
+              <p>include the instrumentation transform if the coverage is to be done</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span>(!util.isArray(config.files)) {
-        config.files = [
-            config.files
-        ];
-    }
-    <span class="hljs-keyword">var</span> filesArray = [];</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (config.optimizer.coverage) {
+        requirePlugin.config.transforms.push(<span class="hljs-string">'karma-optimizer/lib/transforms/coverage'</span>);
+    }</pre></div></div>
             
         </li>
         
@@ -161,6 +167,41 @@ directory</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>add the configuration to build</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    config.optimizer.plugins.push(requirePlugin);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>normalize the files param to an array </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (!util.isArray(config.files)) {
+        config.files = [
+            config.files
+        ];
+    }
+    <span class="hljs-keyword">var</span> filesArray = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <p><code>config.files</code> will have a list of glob patterns. we convert it into a list of files </p>
 
@@ -183,11 +224,11 @@ directory</p>
         </li>
         
         
-        <li id="section-7">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>add all dependencies into require run so that optimizer can work on it.</p>
 
@@ -197,7 +238,7 @@ directory</p>
         <span class="hljs-keyword">return</span> <span class="hljs-string">'require-run: ./'</span> + oneFile;
     });
     log.debug(<span class="hljs-string">'files array: '</span> + filesArray);
-    <span class="hljs-keyword">var</span> configPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'optimizer-config.json'</span>); 
+    <span class="hljs-keyword">var</span> configPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'optimizer-config.json'</span>);
     log.debug(<span class="hljs-string">'writing config at path: '</span> + configPath);
     <span class="hljs-keyword">var</span> tempDir = config.optimizer.tempdir;
     <span class="hljs-keyword">var</span> coverage = config.optimizer.coverage;
@@ -213,18 +254,19 @@ directory</p>
         </li>
         
         
-        <li id="section-8">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <p>create an optimizer.json file with all dependencies to use for raptorjs optimization</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> optimizerPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'optimizer.json'</span>); 
-    <span class="hljs-keyword">var</span> outputPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'output.json'</span>); 
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> optimizerPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'optimizer.json'</span>);
+    <span class="hljs-keyword">var</span> outputPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'output.json'</span>);
+    <span class="hljs-keyword">var</span> watchPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'watch.json'</span>);
     log.debug(<span class="hljs-string">'writing optimizer at path: '</span> + optimizerPath);
     fs.outputJsonSync(
         optimizerPath,
@@ -237,11 +279,11 @@ directory</p>
         </li>
         
         
-        <li id="section-9">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <p>run the optimizer command</p>
 
@@ -255,18 +297,19 @@ directory</p>
         ),
         configPath,
         optimizerPath,
-        outputPath
+        outputPath,
+        watchPath
     ].join(<span class="hljs-string">' '</span>);
     log.debug(<span class="hljs-string">'running command: '</span> + command);</pre></div></div>
             
         </li>
         
         
-        <li id="section-10">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>FIXME: check for command errors</p>
 
@@ -277,30 +320,71 @@ directory</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <p>clear the config.files array and push the newly created files into the array</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    config.files.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(oneFile)</span> </span>{
+            <div class="content"><div class='highlight'><pre>    log.debug(config.files);
+    config.files.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(oneFile)</span> </span>{
         oneFile.included = <span class="hljs-literal">false</span>;
         oneFile.served = <span class="hljs-literal">false</span>;
+        oneFile.watched = <span class="hljs-literal">false</span>;
     });
     config.files.push.apply(config.files, fs.readJsonSync(outputPath).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(path)</span> </span>{
-        <span class="hljs-keyword">return</span> { 
+        <span class="hljs-keyword">return</span> {
             pattern: path,
             served: <span class="hljs-literal">true</span>,
             included: <span class="hljs-literal">true</span>,
-            watched: <span class="hljs-literal">false</span>
+            watched: <span class="hljs-literal">true</span>
         };
-    }));
+    }));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>setup auto watch if required</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (config.autoWatch !== <span class="hljs-literal">false</span>) {
+        <span class="hljs-keyword">var</span> watchedFiles = fs.readJsonSync(watchPath);
+        <span class="hljs-keyword">var</span> chokidar = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chokidar'</span>);
+        <span class="hljs-keyword">var</span> watcher = chokidar.watch(watchedFiles.shift());
+        watcher.add(watchedFiles);
+        watcher.on(<span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(path)</span> </span>{
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'File'</span>, path, <span class="hljs-string">'has changed'</span>);
+            log.debug(<span class="hljs-string">'running command: '</span> + command);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>FIXME: check for command errors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            sh.run(command);
+        });
+    }
 };
-framework.$inject = [ <span class="hljs-string">'emitter'</span>, <span class="hljs-string">'config'</span>, <span class="hljs-string">'logger'</span> ];
+framework.$inject = [<span class="hljs-string">'emitter'</span>, <span class="hljs-string">'config'</span>, <span class="hljs-string">'logger'</span>];
 <span class="hljs-built_in">module</span>.exports = framework;</pre></div></div>
             
         </li>
