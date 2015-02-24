@@ -81,7 +81,8 @@
 <span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
 <span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs-extra'</span>);
 <span class="hljs-keyword">var</span> sh = <span class="hljs-built_in">require</span>(<span class="hljs-string">'execSync'</span>);
-<span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);</pre></div></div>
+<span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+<span class="hljs-keyword">var</span> chokidar = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chokidar'</span>);</pre></div></div>
             
         </li>
         
@@ -383,7 +384,6 @@ directory</p>
             
             <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (config.autoWatch !== <span class="hljs-literal">false</span>) {
         <span class="hljs-keyword">var</span> watchedFiles = fs.readJsonSync(watchPath);
-        <span class="hljs-keyword">var</span> chokidar = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chokidar'</span>);
         <span class="hljs-keyword">var</span> watcher = chokidar.watch(watchedFiles.shift());
         watcher.add(watchedFiles);
         watcher.on(<span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(path)</span> </span>{
