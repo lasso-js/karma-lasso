@@ -15,7 +15,6 @@ var jshintOptions = {
     quotmark: true,
     maxparams: 6,
     node: true,
-    maxstatements: 30,
     eqeqeq: true,
     strict: true,
     undef: true,
