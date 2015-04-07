@@ -92,12 +92,11 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>clear out the cache and old output. If we don’t do this, coverage and watch breaks</p>
+              <p>clear out the cache. If we don’t do this, coverage and watch breaks</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>fs.removeSync(outputDir);
-fs.removeSync(<span class="hljs-string">'./.cache'</span>);
+            <div class="content"><div class='highlight'><pre>fs.removeSync(<span class="hljs-string">'./.cache'</span>);
 <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\t Saving optimization output to: '</span> + outputDir);
 optimizer.configure(optimizerConfig);
 optimizer.optimizePage(
