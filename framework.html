@@ -264,16 +264,10 @@ directory</p>
     log.debug(<span class="hljs-string">'files array: '</span> + filesArray);
     <span class="hljs-keyword">var</span> configPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'optimizer-config.json'</span>);
     log.debug(<span class="hljs-string">'writing config at path: '</span> + configPath);
-    <span class="hljs-keyword">var</span> tempDir = config.optimizer.tempdir;
-    <span class="hljs-keyword">var</span> coverage = config.optimizer.coverage;
-    <span class="hljs-keyword">delete</span> config.optimizer.tempdir;
-    <span class="hljs-keyword">delete</span> config.optimizer.coverage;
     fs.outputJsonSync(
         configPath,
         config.optimizer
-    );
-    config.optimizer.tempdir = tempDir;
-    config.optimizer.coverage = coverage;</pre></div></div>
+    );</pre></div></div>
             
         </li>
         

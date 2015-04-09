@@ -97,7 +97,31 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>fs.removeSync(<span class="hljs-string">'./.cache'</span>);
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\t Saving optimization output to: '</span> + outputDir);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\t Saving optimization output to: '</span> + outputDir);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>get rid of the non standard configs</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>[
+    <span class="hljs-string">'tempdir'</span>,
+    <span class="hljs-string">'coverage'</span>,
+    <span class="hljs-string">'watch'</span>
+].forEach(
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(key)</span> </span>{
+        <span class="hljs-keyword">delete</span> optimizerConfig[key];
+    }
+);
+
 optimizer.configure(optimizerConfig);
 optimizer.optimizePage(
     fs.readJsonSync(process.argv[<span class="hljs-number">3</span>]),
@@ -108,17 +132,17 @@ optimizer.optimizePage(
         }
         <span class="hljs-keyword">var</span> initFile = path.resolve(
             outputDir,
-            <span class="hljs-string">'file-'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random()*<span class="hljs-number">9999999</span>) +<span class="hljs-string">'.js'</span>
+            <span class="hljs-string">'file-'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">9999999</span>) + <span class="hljs-string">'.js'</span>
         );</pre></div></div>
             
         </li>
         
         
-        <li id="section-3">
+        <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>we create a new file for inline javascripts so that it can be included as a separate
 script tag </p>

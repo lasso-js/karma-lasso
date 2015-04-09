@@ -80,9 +80,7 @@
 <span class="hljs-keyword">var</span> through = <span class="hljs-built_in">require</span>(<span class="hljs-string">'through'</span>);
 <span class="hljs-keyword">var</span> minimatch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'minimatch'</span>);
 <span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs-extra'</span>);
-<span class="hljs-keyword">var</span> defaultIgnore = [
-    <span class="hljs-string">'**/node_modules/**'</span>
-];</pre></div></div>
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);</pre></div></div>
             
         </li>
         
@@ -93,7 +91,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>filename to store the putput file</p>
+              <p>filename to store the output file</p>
 
             </div>
             
@@ -114,9 +112,11 @@
             
             <div class="content"><div class='highlight'><pre>fs.outputJsonSync(fileName, []);
 
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options, extraOptions)</span> </span>{
-    options = options || {};
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transform</span><span class="hljs-params">(file)</span> </span>{</pre></div></div>
+<span class="hljs-keyword">var</span> defaultIgnore = [
+    <span class="hljs-string">'node_modules/**'</span>
+];
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(name)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -127,12 +127,11 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>use the default list of ignores only ig the default ignore value is not false</p>
+              <p>get the config</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> ignore = options.defaultIgnore === <span class="hljs-literal">false</span> ? [] : defaultIgnore;
-        ignore = ignore.concat(options.ignore || []);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> watcherConfig = fs.readJsonSync(process.argv[<span class="hljs-number">2</span>]).watch || {};</pre></div></div>
             
         </li>
         
@@ -143,13 +142,11 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>if ignored, do not register the file for watch</p>
+              <p>get the included files</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (ignore.some(minimatch.bind(<span class="hljs-literal">null</span>, file))) {
-            <span class="hljs-keyword">return</span> through();
-        }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> files = [].concat(watcherConfig.files || []);</pre></div></div>
             
         </li>
         
@@ -159,6 +156,58 @@
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>get the ignored files</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> ignore = watcherConfig.defaultIgnore === <span class="hljs-literal">false</span> ? [] : defaultIgnore;
+    ignore = ignore.concat(watcherConfig.ignore || []);
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transform</span><span class="hljs-params">(file)</span> </span>{
+        <span class="hljs-keyword">var</span> relativePath = path.relative(process.cwd(), file);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>if the file is to be ignored, do not instrument it</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (ignore.some(minimatch.bind(<span class="hljs-literal">null</span>, relativePath))) {
+            <span class="hljs-keyword">return</span> through();
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>if the file pattern is specified, test the files on it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span>(files.length &amp;&amp; !files.some(minimatch.bind(<span class="hljs-literal">null</span>, relativePath))) {
+            <span class="hljs-keyword">return</span> through();
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>add the file to the watch list if not ignored</p>
 
@@ -170,10 +219,8 @@
         <span class="hljs-keyword">return</span> through();
     }
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options === <span class="hljs-string">'string'</span>) {
-        <span class="hljs-keyword">var</span> file = options;
-        options = extraOptions || {};
-        <span class="hljs-keyword">return</span> transform(file);
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> name === <span class="hljs-string">'string'</span>) {
+        <span class="hljs-keyword">return</span> transform(name);
     }
     <span class="hljs-keyword">return</span> transform;
 };</pre></div></div>
