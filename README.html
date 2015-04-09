@@ -143,7 +143,8 @@ plugins: [
 };
 </code></pre>
 <h3 id="for-karma-testing-and-coverage-reports">For karma testing and coverage reports</h3>
-<pre><code class="lang-javascript"><span class="hljs-comment">// karma.conf.js</span>
+<pre><code class="lang-javascript">
+<span class="hljs-comment">// karma.conf.js</span>
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(config)</span> </span>{
 config.set({
 browsers: [
@@ -191,6 +192,31 @@ dir: <span class="hljs-string">'./.coverage/html-client/'</span>
 }
 });
 </code></pre>
+<h2 id="available-options">Available Options</h2>
+<p>To configure this plugin, the <code>optimizer</code> key in karma-config must be set.</p>
+<p>This key will accept all the configurations that can be passed to the raptorjs optimizer, except for these keys:</p>
+<ol>
+<li><p><code>tempdir</code> specifies the location of the directory where temporarily created files should be stored.</p>
+</li>
+<li><p><code>coverage</code> has the coverage configuration for the optimizer. <code>coverage</code> can have the below keys</p>
+</li>
+<li><p><code>defaultIgnore</code> - By default, all non javascript files and all files in <code>node_module</code>, <code>test</code> and <code>tests</code> folder are ignored. If <code>defaultIgnore</code> is set to false, these files will not be ignored by default. </p>
+</li>
+<li><p><code>ignore</code> - A glob pattern or an array of glob patterns specifying which files to ignore. This list will be checked along with the default ignore list if <code>defaultIgnore</code> is true or not set. If you only want the ignore list specified here to be used, set the defaultIgnore option to false.</p>
+</li>
+<li><p><code>files</code> - A glob pattern or an array of glob patterns specifying which files to include for coverage. If a file is not ignored, it is tested with this pattern(s). If this option is not set, anything that is not ignored will be reported in coverage.</p>
+</li>
+<li><p><code>reporters</code> - Used to specify the reporters to be used for coverage output. All Istanbul reporters are supported. Reporters can be an object if there is only one. Otherwise, you can pass an array. Each reporter will have a type and a dir key. The report will be generated in the directory specified in the dir key (one folder for each browser) </p>
+</li>
+<li><p><code>watch</code> has the watch configuration for optimizer.</p>
+</li>
+<li><p><code>defaultIgnore</code> - By default, all files in <code>node_module</code> folder are ignored. If <code>defaultIgnore</code> is set to false, these files will not be ignored by default. </p>
+</li>
+<li><p><code>ignore</code> - A glob pattern or an array of glob patterns specifying which files to ignore. This list will be checked along with the default ignore list if <code>defaultIgnore</code> is true or not set. If you only want the ignore list specified here to be used, set the defaultIgnore option to false.</p>
+</li>
+<li><p><code>files</code> - A glob pattern or an array of glob patterns specifying which files to include for watch. If a file is not ignored, it is tested with this pattern(s). If this option is not set, anything that is not ignored will be watched.</p>
+</li>
+</ol>
 
             </div>
             
