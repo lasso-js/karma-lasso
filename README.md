@@ -91,6 +91,7 @@ module.exports = function (config) {
 
 
 ``` javascript
+
 // karma.conf.js
 module.exports = function (config) {
     config.set({
@@ -138,5 +139,33 @@ module.exports = function (config) {
             }
         }
     });
-    
-    ```
+
+```
+
+
+
+## Available Options
+
+To configure this plugin, the `optimizer` key in karma-config must be set.
+
+This key will accept all the configurations that can be passed to the raptorjs optimizer, except for these keys:
+
+1. `tempdir` specifies the location of the directory where temporarily created files should be stored.
+
+2. `coverage` has the coverage configuration for the optimizer. `coverage` can have the below keys
+
+  - `defaultIgnore` - By default, all non javascript files and all files in `node_module`, `test` and `tests` folder are ignored. If `defaultIgnore` is set to false, these files will not be ignored by default. 
+  
+  - `ignore` - A glob pattern or an array of glob patterns specifying which files to ignore. This list will be checked along with the default ignore list if `defaultIgnore` is true or not set. If you only want the ignore list specified here to be used, set the defaultIgnore option to false.
+
+  - `files` - A glob pattern or an array of glob patterns specifying which files to include for coverage. If a file is not ignored, it is tested with this pattern(s). If this option is not set, anything that is not ignored will be reported in coverage.
+  
+  - `reporters` - Used to specify the reporters to be used for coverage output. All Istanbul reporters are supported. Reporters can be an object if there is only one. Otherwise, you can pass an array. Each reporter will have a type and a dir key. The report will be generated in the directory specified in the dir key (one folder for each browser) 
+
+3. `watch` has the watch configuration for optimizer.
+
+  - `defaultIgnore` - By default, all files in `node_module` folder are ignored. If `defaultIgnore` is set to false, these files will not be ignored by default. 
+  
+  - `ignore` - A glob pattern or an array of glob patterns specifying which files to ignore. This list will be checked along with the default ignore list if `defaultIgnore` is true or not set. If you only want the ignore list specified here to be used, set the defaultIgnore option to false.
+
+  - `files` - A glob pattern or an array of glob patterns specifying which files to include for watch. If a file is not ignored, it is tested with this pattern(s). If this option is not set, anything that is not ignored will be watched.
