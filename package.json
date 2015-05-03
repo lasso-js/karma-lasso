@@ -14,7 +14,6 @@
     "dependencies": {
         "execSync": "^1",
         "fs-extra": "^0",
-        "glob": "^4",
         "istanbul": "^0",
         "through": "^2",
         "minimatch": "^2",
