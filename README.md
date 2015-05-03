@@ -169,3 +169,7 @@ This key will accept all the configurations that can be passed to the raptorjs o
   - `ignore` - A glob pattern or an array of glob patterns specifying which files to ignore. This list will be checked along with the default ignore list if `defaultIgnore` is true or not set. If you only want the ignore list specified here to be used, set the defaultIgnore option to false.
 
   - `files` - A glob pattern or an array of glob patterns specifying which files to include for watch. If a file is not ignored, it is tested with this pattern(s). If this option is not set, anything that is not ignored will be watched.
+
+4. `ignore` - A glob pattern or an array of glob patterns specifying which files to not optimize.
+
+5. `files` - A glob pattern or an array of glob patterns specifying which files to include for optimization.
