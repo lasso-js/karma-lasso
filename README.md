@@ -7,19 +7,19 @@
 
 # karma-optimizer 
 
-> Karma Plugin for [RaptorJS Optimizer](https://github.com/raptorjs/optimizer).
+> Karma Plugin for [Lasso.js](https://github.com/lasso-js/lasso).
 
 
 ## Installation
 
-The easiest way is to keep `karma-optimizer` as a devDependency in your `package.json`.
+The easiest way is to keep `karma-lasso` as a devDependency in your `package.json`.
 
 ```json
 
 {
     "devDependencies": {
         "karma": "~0.10",
-        "karma-optimizer": "^0.0"
+        "karma-lasso": "^0.0"
     }
 }
 
@@ -29,14 +29,14 @@ or you can simply do it by:
 
 ```bash
 
-npm install karma-optimizer --save-dev
+npm install karma-lasso --save-dev
 
 ```
 
 
 ## Configuration
 
-The basic configuration for karma-optimizer is detailed below:
+The basic configuration for karma-lasso is detailed below:
 
 ### For Simple karma testing
 
@@ -79,7 +79,7 @@ module.exports = function (config) {
         // 5. Add karma-optimizer as a plugin
         plugins: [
             // .. other plugins
-            'karma-optimizer'
+            'karma-lasso'
         ]
     });
 };
