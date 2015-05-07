@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/pranavjha/karma-lasso.svg)](https://travis-ci.org/pranavjha/karma-lasso)
-[![Code Climate](https://codeclimate.com/github/pranavjha/karma-lasso/badges/gpa.svg)](https://codeclimate.com/github/pranavjha/karma-lasso)
+[![Build Status](https://travis-ci.org/lasso-js/karma-lasso.svg)](https://travis-ci.org/lasso-js/karma-lasso)
+[![Code Climate](https://codeclimate.com/github/lasso-js/karma-lasso/badges/gpa.svg)](https://codeclimate.com/github/lasso-js/karma-lasso)
 
-[![Dependency Status](https://david-dm.org/pranavjha/karma-lasso.svg)](https://david-dm.org/pranavjha/karma-lasso)
-[![devDependency Status](https://david-dm.org/pranavjha/karma-lasso/dev-status.svg)](https://david-dm.org/pranavjha/karma-lasso#info=devDependencies)
-[![peerDependency Status](https://david-dm.org/pranavjha/karma-lasso/peer-status.svg)](https://david-dm.org/pranavjha/karma-lasso#info=peerDependencies)
+[![Dependency Status](https://david-dm.org/lasso-js/karma-lasso.svg)](https://david-dm.org/lasso-js/karma-lasso)
+[![devDependency Status](https://david-dm.org/lasso-js/karma-lasso/dev-status.svg)](https://david-dm.org/lasso-js/karma-lasso#info=devDependencies)
+[![peerDependency Status](https://david-dm.org/lasso-js/karma-lasso/peer-status.svg)](https://david-dm.org/lasso-js/karma-lasso#info=peerDependencies)
 
 # karma-lasso
 

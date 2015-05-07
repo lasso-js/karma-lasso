@@ -60,7 +60,7 @@ module.exports = function (grunt) {
       options: {
         base: '.docs',
         // GH_TOKEN is the environment variable holding the access token for the repository
-        repo: 'https://' + process.env.GH_TOKEN + '@github.com/pranavjha/karma-lasso.git',
+        repo: 'https://' + process.env.GH_TOKEN + '@github.com/lasso-js/karma-lasso.git',
         clone: '.gh_pages',
         message: 'auto commit karma-lasso on <%= grunt.template.today("yyyy-mm-dd") %>',
         // This configuration will suppress logging and sanitize error messages.
