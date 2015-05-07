@@ -1,14 +1,14 @@
 {
-  "name": "karma-optimizer",
-  "version": "0.1.1",
-  "description": "karma plugin for raptorjs optimizer",
+  "name": "karma-lasso",
+  "version": "0.0.0",
+  "description": "karma plugin for lasso",
   "main": "lib",
   "scripts": {
     "test": "grunt test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pranavjha/karma-optimizer.git"
+    "url": "https://github.com/lasso-js/karma-lasso.git"
   },
   "dependencies": {
     "shelljs": "^0",
@@ -19,8 +19,8 @@
     "chokidar": "^1.0.0-rc3"
   },
   "peerDependencies": {
-    "optimizer": "^1",
-    "optimizer-require": "^1"
+    "lasso": "^1",
+    "lasso-require": "^1"
   },
   "devDependencies": {
     "grunt": "^0",
@@ -31,7 +31,7 @@
   "keywords": [
     "karma",
     "raptorjs",
-    "optimizer"
+    "lasso"
   ],
   "author": "Pranav Jha <jha.pranav.s@gmail.com> (https://github.com/pranavjha)",
   "license": "MIT"

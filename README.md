@@ -1,11 +1,11 @@
-[![Build Status](https://travis-ci.org/pranavjha/karma-optimizer.svg)](https://travis-ci.org/pranavjha/karma-optimizer)
-[![Code Climate](https://codeclimate.com/github/pranavjha/karma-optimizer/badges/gpa.svg)](https://codeclimate.com/github/pranavjha/karma-optimizer)
+[![Build Status](https://travis-ci.org/pranavjha/karma-lasso.svg)](https://travis-ci.org/pranavjha/karma-lasso)
+[![Code Climate](https://codeclimate.com/github/pranavjha/karma-lasso/badges/gpa.svg)](https://codeclimate.com/github/pranavjha/karma-lasso)
 
-[![Dependency Status](https://david-dm.org/pranavjha/karma-optimizer.svg)](https://david-dm.org/pranavjha/karma-optimizer)
-[![devDependency Status](https://david-dm.org/pranavjha/karma-optimizer/dev-status.svg)](https://david-dm.org/pranavjha/karma-optimizer#info=devDependencies)
-[![peerDependency Status](https://david-dm.org/pranavjha/karma-optimizer/peer-status.svg)](https://david-dm.org/pranavjha/karma-optimizer#info=peerDependencies)
+[![Dependency Status](https://david-dm.org/pranavjha/karma-lasso.svg)](https://david-dm.org/pranavjha/karma-lasso)
+[![devDependency Status](https://david-dm.org/pranavjha/karma-lasso/dev-status.svg)](https://david-dm.org/pranavjha/karma-lasso#info=devDependencies)
+[![peerDependency Status](https://david-dm.org/pranavjha/karma-lasso/peer-status.svg)](https://david-dm.org/pranavjha/karma-lasso#info=peerDependencies)
 
-# karma-optimizer 
+# karma-lasso
 
 > Karma Plugin for [Lasso.js](https://github.com/lasso-js/lasso).
 
@@ -51,12 +51,12 @@ module.exports = function (config) {
         reporters: [
             'mocha'
         ],
-        // 1. specify the config to be passed to optimizer in the optimizer key
-        optimizer: {
+        // 1. specify the config to be passed to lasso in the lasso key
+        lasso: {
             plugins: [
-                'i18n-ebay/optimizer/plugin',
-                'optimizer-less',
-                'optimizer-dust',
+                'i18n-ebay/lasso/plugin',
+                'lasso-less',
+                'lasso-dust',
             ],
             minify: false,
             bundlingEnabled: false,
@@ -65,18 +65,18 @@ module.exports = function (config) {
             // 2. tempdir is the directory where all the generated files will be stored.
             tempdir: './.test'
         },
-        // 3. optimizer should be added as a framework so that it can do bundling before tests
+        // 3. lasso should be added as a framework so that it can do bundling before tests
         frameworks: [
-            'optimizer',
+            'lasso',
             'mocha',
             'chai'
         ],
-        // 4. Only specify the main test file that requires the source files. karma-optimizer 
+        // 4. Only specify the main test file that requires the source files. karma-lasso
         // will expand it and add all required files
         files: [
             './test/client/**/*.js'
         ],
-        // 5. Add karma-optimizer as a plugin
+        // 5. Add karma-lasso as a plugin
         plugins: [
             // .. other plugins
             'karma-lasso'
@@ -98,17 +98,17 @@ module.exports = function (config) {
         browsers: [
             'PhantomJS'
         ],
-        // 1. for generating coverage reports, add optimizer as a reporter in config
+        // 1. for generating coverage reports, add lasso as a reporter in config
         reporters: [
             'mocha',
-            'optimizer'
+            'lasso'
         ],
-        // 2. specify the config to be passed to optimizer in the optimizer key
-        optimizer: {
+        // 2. specify the config to be passed to lasso in the lasso key
+        lasso: {
             plugins: [
-                'i18n-ebay/optimizer/plugin',
-                'optimizer-less',
-                'optimizer-dust',
+                'i18n-ebay/lasso/plugin',
+                'lasso-less',
+                'lasso-dust',
             ],
             minify: false,
             bundlingEnabled: false,
@@ -116,7 +116,7 @@ module.exports = function (config) {
             cacheProfile: 'development',     
             // 3. tempdir is the directory where all the generated files will be stored.
             tempdir: './.coverage',
-            // 4. to enable coverage, the coverage key should be added in the optimizer config 
+            // 4. to enable coverage, the coverage key should be added in the lasso config
             coverage: {
                 // 5. A string glob pattern or an array of patterns matching the files for which,
                 // coverage report is to be generated 
@@ -146,13 +146,13 @@ module.exports = function (config) {
 
 ## Available Options
 
-To configure this plugin, the `optimizer` key in karma-config must be set.
+To configure this plugin, the `lasso` key in karma-config must be set.
 
-This key will accept all the configurations that can be passed to the raptorjs optimizer, except for these keys:
+This key will accept all the configurations that can be passed to the raptorjs lasso, except for these keys:
 
 1. `tempdir` specifies the location of the directory where temporarily created files should be stored.
 
-2. `coverage` has the coverage configuration for the optimizer. `coverage` can have the below keys
+2. `coverage` has the coverage configuration for the lasso. `coverage` can have the below keys
 
   - `defaultIgnore` - By default, all non javascript files and all files in `node_module`, `test` and `tests` folder are ignored. If `defaultIgnore` is set to false, these files will not be ignored by default. 
   
@@ -162,7 +162,7 @@ This key will accept all the configurations that can be passed to the raptorjs o
   
   - `reporters` - Used to specify the reporters to be used for coverage output. All Istanbul reporters are supported. Reporters can be an object if there is only one. Otherwise, you can pass an array. Each reporter will have a type and a dir key. The report will be generated in the directory specified in the dir key (one folder for each browser) 
 
-3. `watch` has the watch configuration for optimizer.
+3. `watch` has the watch configuration for lasso.
 
   - `defaultIgnore` - By default, all files in `node_module` folder are ignored. If `defaultIgnore` is set to false, these files will not be ignored by default. 
   
