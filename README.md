@@ -173,3 +173,4 @@ This key will accept all the configurations that can be passed to the raptorjs l
 4. `ignore` - A glob pattern or an array of glob patterns specifying which files to not optimize.
 
 5. `files` - A glob pattern or an array of glob patterns specifying which files to include for optimization.
+
