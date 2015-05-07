@@ -1,39 +1,38 @@
 {
-    "name": "karma-optimizer",
-    "version": "0.1.0",
-    "description": "karma plugin for raptorjs optimizer",
-    "main": "lib",
-    "scripts": {
-        "test": "grunt test"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/pranavjha/karma-optimizer.git"
-    },
-
-    "dependencies": {
-        "execSync": "^1",
-        "fs-extra": "^0",
-        "istanbul": "^0",
-        "through": "^2",
-        "minimatch": "^2",
-        "chokidar": "^1.0.0-rc3"
-    },
-    "peerDependencies": {
-        "optimizer": "^1",
-        "optimizer-require": "^1"
-    },
-    "devDependencies": {
-        "grunt": "^0",
-        "grunt-contrib-jshint": "^0",
-        "grunt-docco": "^0",
-        "grunt-gh-pages": "^0"
-    },
-    "keywords": [
-        "karma",
-        "raptorjs",
-        "optimizer"
-    ],
-    "author": "Pranav Jha <jha.pranav.s@gmail.com> (https://github.com/pranavjha)",
-    "license": "MIT"
+  "name": "karma-optimizer",
+  "version": "0.1.1",
+  "description": "karma plugin for raptorjs optimizer",
+  "main": "lib",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pranavjha/karma-optimizer.git"
+  },
+  "dependencies": {
+    "shelljs": "^0",
+    "fs-extra": "^0",
+    "istanbul": "^0",
+    "through": "^2",
+    "minimatch": "^2",
+    "chokidar": "^1.0.0-rc3"
+  },
+  "peerDependencies": {
+    "optimizer": "^1",
+    "optimizer-require": "^1"
+  },
+  "devDependencies": {
+    "grunt": "^0",
+    "grunt-contrib-jshint": "^0",
+    "grunt-docco": "^0",
+    "grunt-gh-pages": "^0"
+  },
+  "keywords": [
+    "karma",
+    "raptorjs",
+    "optimizer"
+  ],
+  "author": "Pranav Jha <jha.pranav.s@gmail.com> (https://github.com/pranavjha)",
+  "license": "MIT"
 }
