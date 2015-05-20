@@ -41,6 +41,7 @@ frameworks add their sources in the source list.**
 
 The basic configuration for karma-lasso is detailed below:
 
+
 ### For Simple karma testing
 
 ``` javascript
