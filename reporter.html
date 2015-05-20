@@ -29,8 +29,8 @@
               </a>
             
               
-              <a class="source" href="optimizer-command.html">
-                optimizer-command.js
+              <a class="source" href="lasso-command.html">
+                lasso-command.js
               </a>
             
               
@@ -95,15 +95,15 @@ takes the absolute file path which doesnt look good on coverage reports</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> makeRelative = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(coverage)</span> </span>{
-    <span class="hljs-keyword">var</span> normalizedCoverage = {};
-    <span class="hljs-built_in">Object</span>.keys(coverage).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(filePath)</span> </span>{
-        <span class="hljs-keyword">var</span> val = coverage[filePath];
-        <span class="hljs-keyword">var</span> relativePath = path.relative(process.cwd(), filePath).replace(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">'/'</span>);
-        val.path = relativePath;
-        normalizedCoverage[relativePath] = val;
-    });
-    <span class="hljs-keyword">return</span> normalizedCoverage;
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> makeRelative = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">coverage</span>) </span>{
+  <span class="hljs-keyword">var</span> normalizedCoverage = {};
+  <span class="hljs-built_in">Object</span>.keys(coverage).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">filePath</span>) </span>{
+    <span class="hljs-keyword">var</span> val = coverage[filePath];
+    <span class="hljs-keyword">var</span> relativePath = path.relative(process.cwd(), filePath).replace(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">'/'</span>);
+    val.path = relativePath;
+    normalizedCoverage[relativePath] = val;
+  });
+  <span class="hljs-keyword">return</span> normalizedCoverage;
 };</pre></div></div>
             
         </li>
@@ -119,11 +119,11 @@ takes the absolute file path which doesnt look good on coverage reports</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> Reporter = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(config, helper, logger)</span> </span>{
-    <span class="hljs-keyword">var</span> log = logger.create(<span class="hljs-string">'reporter:optimizer'</span>);
-    <span class="hljs-keyword">this</span>.onBrowserComplete = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(browser, result)</span> </span>{
-        <span class="hljs-keyword">var</span> collector = <span class="hljs-keyword">new</span> istanbul.Collector();
-        collector.add(makeRelative(result.coverage));</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> Reporter = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">config, helper, logger</span>) </span>{
+  <span class="hljs-keyword">var</span> log = logger.create(<span class="hljs-string">'reporter:lasso'</span>);
+  <span class="hljs-keyword">this</span>.onBrowserComplete = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">browser, result</span>) </span>{
+    <span class="hljs-keyword">var</span> collector = <span class="hljs-keyword">new</span> istanbul.Collector();
+    collector.add(makeRelative(result.coverage));</pre></div></div>
             
         </li>
         
@@ -138,24 +138,28 @@ takes the absolute file path which doesnt look good on coverage reports</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        log.debug(<span class="hljs-string">'dumping coverage report(s) for '</span> + browser.name);
-        <span class="hljs-keyword">if</span>(!util.isArray(config.optimizer.coverage.reporters)) {
-            config.optimizer.coverage.reporters = [
-                config.optimizer.coverage.reporters
-            ];
-        }
-        config.optimizer.coverage.reporters.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(reporterConfig)</span> </span>{
-            <span class="hljs-keyword">var</span> reportDir = path.join(reporterConfig.dir, browser.name);
-            <span class="hljs-keyword">var</span> reporter = <span class="hljs-keyword">new</span> istanbul.Reporter(<span class="hljs-literal">false</span>, reportDir);
-            reporter.add(reporterConfig.type);
-            reporter.write(collector, <span class="hljs-literal">true</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-                log.debug(reporterConfig.type + <span class="hljs-string">' report generated at '</span>+ reportDir);
-            });
-        });
-    };
+            <div class="content"><div class='highlight'><pre>    log.debug(<span class="hljs-string">'dumping coverage report(s) for '</span> + browser.name);
+    <span class="hljs-keyword">if</span> (!util.isArray(config.lasso.coverage.reporters)) {
+      config.lasso.coverage.reporters = [
+        config.lasso.coverage.reporters
+      ];
+    }
+    config.lasso.coverage.reporters.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reporterConfig</span>) </span>{
+      <span class="hljs-keyword">var</span> reportDir = path.join(reporterConfig.dir, browser.name);
+      <span class="hljs-keyword">var</span> reporter = <span class="hljs-keyword">new</span> istanbul.Reporter(<span class="hljs-literal">false</span>, reportDir);
+      reporter.add(reporterConfig.type);
+      reporter.write(collector, <span class="hljs-literal">true</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        log.debug(reporterConfig.type + <span class="hljs-string">' report generated at '</span> + reportDir);
+      });
+    });
+  };
 };
 
-Reporter.$inject = [<span class="hljs-string">'config'</span>, <span class="hljs-string">'helper'</span>, <span class="hljs-string">'logger'</span>];
+Reporter.$inject = [
+  <span class="hljs-string">'config'</span>,
+  <span class="hljs-string">'helper'</span>,
+  <span class="hljs-string">'logger'</span>
+];
 
 <span class="hljs-built_in">module</span>.exports = Reporter;</pre></div></div>
             

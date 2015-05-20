@@ -29,8 +29,8 @@
               </a>
             
               
-              <a class="source" href="optimizer-command.html">
-                optimizer-command.js
+              <a class="source" href="lasso-command.html">
+                lasso-command.js
               </a>
             
               
@@ -77,12 +77,12 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>;
-<span class="hljs-keyword">var</span> glob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'glob'</span>);
 <span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
 <span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs-extra'</span>);
-<span class="hljs-keyword">var</span> sh = <span class="hljs-built_in">require</span>(<span class="hljs-string">'execSync'</span>);
+<span class="hljs-keyword">var</span> sh = <span class="hljs-built_in">require</span>(<span class="hljs-string">'shelljs'</span>);
 <span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
-<span class="hljs-keyword">var</span> chokidar = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chokidar'</span>);</pre></div></div>
+<span class="hljs-keyword">var</span> chokidar = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chokidar'</span>);
+<span class="hljs-keyword">var</span> minimatch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'minimatch'</span>);</pre></div></div>
             
         </li>
         
@@ -97,8 +97,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> framework = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(emitter, config, logger)</span> </span>{
-    <span class="hljs-keyword">var</span> log = logger.create(<span class="hljs-string">'framework:optimizer'</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> framework = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">emitter, config, logger</span>) </span>{
+  <span class="hljs-keyword">var</span> log = logger.create(<span class="hljs-string">'framework:lasso'</span>);</pre></div></div>
             
         </li>
         
@@ -114,11 +114,11 @@ directory</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    config.optimizer.fileWriter = {
-        outputDir: config.optimizer.tempdir + <span class="hljs-string">'/static'</span>,
-        <span class="hljs-string">'url-prefix'</span>: <span class="hljs-string">'/static'</span>,
-        fingerprintsEnabled: <span class="hljs-literal">false</span>
-    };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  config.lasso.fileWriter = {
+    outputDir: config.lasso.tempdir + <span class="hljs-string">'/static'</span>,
+    <span class="hljs-string">'url-prefix'</span>: <span class="hljs-string">'/static'</span>,
+    fingerprintsEnabled: <span class="hljs-literal">false</span>
+  };</pre></div></div>
             
         </li>
         
@@ -129,25 +129,18 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>use the optimizer-require plugin if there already exists one</p>
+              <p>use the lasso-require plugin if there already exists one</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> requirePlugin = {
-        plugin: <span class="hljs-string">'optimizer-require'</span>,
-        config: {
-            transforms: []
-        }
-    };
-    <span class="hljs-keyword">var</span> pluginIndex = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">var</span> spliceCount = <span class="hljs-number">0</span>;
-    config.optimizer.plugins.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(plugin, index)</span> </span>{
-        <span class="hljs-keyword">if</span>(plugin === <span class="hljs-string">'optimizer-require'</span> || plugin.plugin === <span class="hljs-string">'optimizer-require'</span>) {
-            requirePlugin = plugin;
-            pluginIndex = index;
-            spliceCount = <span class="hljs-number">1</span>;
-        }
-    });</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> requirePlugin = {
+    plugin: <span class="hljs-string">'lasso-require'</span>,
+    config: {
+      transforms: []
+    }
+  };
+  <span class="hljs-keyword">var</span> pluginIndex = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">var</span> spliceCount = <span class="hljs-number">0</span>;</pre></div></div>
             
         </li>
         
@@ -158,13 +151,11 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>include the autowatch transform if watch is true</p>
+              <p>if there are no plugins added, initialize it to an empty array</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (config.autoWatch !== <span class="hljs-literal">false</span>) {
-        requirePlugin.config.transforms.push(<span class="hljs-string">'karma-optimizer/lib/transforms/watcher'</span>);
-    }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  config.lasso.plugins = (config.lasso.plugins || []);</pre></div></div>
             
         </li>
         
@@ -175,13 +166,17 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>include the instrumentation transform if the coverage is to be done</p>
+              <p>find lasso-require is it is there.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (config.optimizer.coverage) {
-        requirePlugin.config.transforms.push(<span class="hljs-string">'karma-optimizer/lib/transforms/coverage'</span>);
-    }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  config.lasso.plugins.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">plugin, index</span>) </span>{
+    <span class="hljs-keyword">if</span> (plugin === <span class="hljs-string">'lasso-require'</span> || plugin.plugin === <span class="hljs-string">'lasso-require'</span>) {
+      requirePlugin = plugin;
+      pluginIndex = index;
+      spliceCount = <span class="hljs-number">1</span>;
+    }
+  });</pre></div></div>
             
         </li>
         
@@ -192,11 +187,13 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>add or update the optimizer-require configuration</p>
+              <p>include the autowatch transform if watch is true</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    config.optimizer.plugins.splice(pluginIndex, spliceCount, requirePlugin);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (config.autoWatch !== <span class="hljs-literal">false</span>) {
+    requirePlugin.config.transforms.push(<span class="hljs-string">'karma-lasso/lib/transforms/watcher'</span>);
+  }</pre></div></div>
             
         </li>
         
@@ -207,16 +204,13 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>normalize the files param to an array </p>
+              <p>include the instrumentation transform if the coverage is to be done</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (!util.isArray(config.files)) {
-        config.files = [
-            config.files
-        ];
-    }
-    <span class="hljs-keyword">var</span> filesArray = [];</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (config.lasso.coverage) {
+    requirePlugin.config.transforms.push(<span class="hljs-string">'karma-lasso/lib/transforms/coverage'</span>);
+  }</pre></div></div>
             
         </li>
         
@@ -227,23 +221,11 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p><code>config.files</code> will have a list of glob patterns. we convert it into a list of files </p>
+              <p>add or update the lasso-require configuration</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    config.files.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(oneConfig)</span> </span>{
-        <span class="hljs-keyword">return</span> oneConfig.pattern;
-    }).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(pattern)</span> </span>{
-        log.debug(<span class="hljs-string">'Processing '</span>, pattern);
-        <span class="hljs-keyword">return</span> path.relative(
-            process.cwd(),
-            pattern
-        ).replace(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">'/'</span>);
-    }).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(pattern)</span> </span>{
-        log.debug(<span class="hljs-string">'Glob Pattern: '</span>, pattern);
-        <span class="hljs-keyword">var</span> files = glob.sync(pattern);
-        filesArray.push.apply(filesArray, files);
-    });</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  config.lasso.plugins.splice(pluginIndex, spliceCount, requirePlugin);</pre></div></div>
             
         </li>
         
@@ -254,20 +236,15 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>add all dependencies into require run so that optimizer can work on it.</p>
+              <p>normalize the files param to an array</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> dependencies = filesArray.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(oneFile)</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'require-run: ./'</span> + oneFile;
-    });
-    log.debug(<span class="hljs-string">'files array: '</span> + filesArray);
-    <span class="hljs-keyword">var</span> configPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'optimizer-config.json'</span>);
-    log.debug(<span class="hljs-string">'writing config at path: '</span> + configPath);
-    fs.outputJsonSync(
-        configPath,
-        config.optimizer
-    );</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (!util.isArray(config.files)) {
+    config.files = [
+      config.files
+    ];
+  }</pre></div></div>
             
         </li>
         
@@ -278,21 +255,18 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              <p>create an optimizer.json file with all dependencies to use for raptorjs optimization</p>
+              <p><code>config.files</code> will have a list of files</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> optimizerPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'optimizer.json'</span>);
-    <span class="hljs-keyword">var</span> outputPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'output.json'</span>);
-    <span class="hljs-keyword">var</span> watchPath = path.join(config.optimizer.tempdir, <span class="hljs-string">'watch.json'</span>);
-    log.debug(<span class="hljs-string">'writing optimizer at path: '</span> + optimizerPath);
-    fs.outputJsonSync(
-        optimizerPath,
-        {
-            name: <span class="hljs-string">'index'</span>,
-            dependencies: dependencies
-        }
-    );</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> filesArray = config.files.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">oneConfig</span>) </span>{
+    <span class="hljs-keyword">if</span> (!oneConfig.included) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-keyword">var</span> relativePath = path.relative(
+      process.cwd(),
+      oneConfig.pattern
+    ).replace(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">'/'</span>);</pre></div></div>
             
         </li>
         
@@ -303,22 +277,11 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
-              <p>run the optimizer command</p>
+              <p>get the included files</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> command = [
-        <span class="hljs-string">'node'</span>,
-        path.relative(
-            process.cwd(),
-            path.resolve(__dirname, <span class="hljs-string">'helpers/optimizer-command.js'</span>)
-        ),
-        configPath,
-        optimizerPath,
-        outputPath,
-        watchPath
-    ].join(<span class="hljs-string">' '</span>);
-    log.debug(<span class="hljs-string">'running command: '</span> + command);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> files = [].concat(config.lasso.files || []);</pre></div></div>
             
         </li>
         
@@ -329,11 +292,11 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              <p>FIXME: check for command errors</p>
+              <p>get the ignored files</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    sh.run(command);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> ignore = [].concat(config.lasso.ignore || []);</pre></div></div>
             
         </li>
         
@@ -344,24 +307,13 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
-              <p>clear the config.files array and push the newly created files into the array</p>
+              <p>if the file is to be ignored, do not instrument it</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    log.debug(config.files);
-    config.files.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(oneFile)</span> </span>{
-        oneFile.included = <span class="hljs-literal">false</span>;
-        oneFile.served = <span class="hljs-literal">false</span>;
-        oneFile.watched = <span class="hljs-literal">false</span>;
-    });
-    config.files.push.apply(config.files, fs.readJsonSync(outputPath).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(path)</span> </span>{
-        <span class="hljs-keyword">return</span> {
-            pattern: path,
-            served: <span class="hljs-literal">true</span>,
-            included: <span class="hljs-literal">true</span>,
-            watched: <span class="hljs-literal">true</span>
-        };
-    }));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (ignore.some(minimatch.bind(<span class="hljs-literal">null</span>, relativePath))) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }</pre></div></div>
             
         </li>
         
@@ -372,17 +324,13 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
-              <p>setup auto watch if required</p>
+              <p>if the file pattern is specified, test the files on it.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (config.autoWatch !== <span class="hljs-literal">false</span>) {
-        <span class="hljs-keyword">var</span> watchedFiles = fs.readJsonSync(watchPath);
-        <span class="hljs-keyword">var</span> watcher = chokidar.watch(watchedFiles.shift());
-        watcher.add(watchedFiles);
-        watcher.on(<span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(path)</span> </span>{
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'File'</span>, path, <span class="hljs-string">'has changed'</span>);
-            log.debug(<span class="hljs-string">'running command: '</span> + command);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (files.length &amp;&amp; !files.some(minimatch.bind(<span class="hljs-literal">null</span>, relativePath))) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }</pre></div></div>
             
         </li>
         
@@ -393,15 +341,169 @@ directory</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
+              <p>disable the files that are to be optimized.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    oneConfig.included = <span class="hljs-literal">false</span>;
+    oneConfig.served = <span class="hljs-literal">false</span>;
+    oneConfig.watched = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }).map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">oneConfig</span>) </span>{
+    <span class="hljs-keyword">return</span> oneConfig.pattern;
+  }).map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pattern</span>) </span>{
+    <span class="hljs-keyword">return</span> path.relative(
+      process.cwd(),
+      pattern
+    ).replace(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">'/'</span>);
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>add all dependencies into require run so that lasso can work on it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> dependencies = filesArray.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">oneFile</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'require-run: ./'</span> + oneFile;
+  });
+  log.debug(<span class="hljs-string">'files array: '</span> + filesArray);
+  <span class="hljs-keyword">var</span> configPath = path.join(config.lasso.tempdir, <span class="hljs-string">'lasso-config.json'</span>);
+  log.debug(<span class="hljs-string">'writing config at path: '</span> + configPath);
+  fs.outputJsonSync(
+    configPath,
+    config.lasso
+  );</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>create an lasso.json file with all dependencies to use for lasso optimization</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> lassoPath = path.join(config.lasso.tempdir, <span class="hljs-string">'lasso.json'</span>);
+  <span class="hljs-keyword">var</span> outputPath = path.join(config.lasso.tempdir, <span class="hljs-string">'output.json'</span>);
+  <span class="hljs-keyword">var</span> watchPath = path.join(config.lasso.tempdir, <span class="hljs-string">'watch.json'</span>);
+  log.debug(<span class="hljs-string">'writing lasso at path: '</span> + lassoPath);
+  fs.outputJsonSync(
+    lassoPath,
+    {
+      name: <span class="hljs-string">'index'</span>,
+      dependencies: dependencies
+    }
+  );</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>run the lasso command</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> command = [
+    <span class="hljs-string">'node'</span>,
+    path.relative(
+      process.cwd(),
+      path.resolve(__dirname, <span class="hljs-string">'helpers/lasso-command.js'</span>)
+    ),
+    configPath,
+    lassoPath,
+    outputPath,
+    watchPath
+  ].join(<span class="hljs-string">' '</span>);
+  log.debug(<span class="hljs-string">'running command: '</span> + command);
+
+  <span class="hljs-keyword">var</span> returnedObject = sh.exec(command);
+  <span class="hljs-keyword">if</span> (returnedObject.code !== <span class="hljs-number">0</span>) {
+    log.error(returnedObject.output);
+    process.exit(<span class="hljs-number">1</span>);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>push the newly created files into the array</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  config.files.push.apply(config.files, fs.readJsonSync(outputPath).map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path</span>) </span>{
+    <span class="hljs-keyword">return</span> {
+      pattern: path,
+      served: <span class="hljs-literal">true</span>,
+      included: <span class="hljs-literal">true</span>,
+      watched: <span class="hljs-literal">true</span>
+    };
+  }));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>setup auto watch if required</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (config.autoWatch !== <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">var</span> watchedFiles = fs.readJsonSync(watchPath);
+    <span class="hljs-keyword">var</span> watcher = chokidar.watch(watchedFiles.shift());
+    watcher.add(watchedFiles);
+    watcher.on(<span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path</span>) </span>{
+      log.debug(<span class="hljs-string">'File'</span>, path, <span class="hljs-string">'has changed'</span>);
+      log.debug(<span class="hljs-string">'running command: '</span> + command);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
               <p>FIXME: check for command errors</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            sh.run(command);
-        });
-    }
+            <div class="content"><div class='highlight'><pre>      sh.run(command);
+    });
+  }
 };
-framework.$inject = [<span class="hljs-string">'emitter'</span>, <span class="hljs-string">'config'</span>, <span class="hljs-string">'logger'</span>];
+framework.$inject = [
+  <span class="hljs-string">'emitter'</span>,
+  <span class="hljs-string">'config'</span>,
+  <span class="hljs-string">'logger'</span>
+];
 <span class="hljs-built_in">module</span>.exports = framework;</pre></div></div>
             
         </li>

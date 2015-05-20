@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>optimizer-command.js</title>
+  <title>lasso-command.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -29,8 +29,8 @@
               </a>
             
               
-              <a class="source" href="optimizer-command.html">
-                optimizer-command.js
+              <a class="source" href="lasso-command.html">
+                lasso-command.js
               </a>
             
               
@@ -61,7 +61,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>optimizer-command.js</h1>
+                  <h1>lasso-command.js</h1>
               </div>
           </li>
         
@@ -77,11 +77,11 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>;
-<span class="hljs-keyword">var</span> optimizer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'optimizer'</span>);
+<span class="hljs-keyword">var</span> lasso = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lasso'</span>);
 <span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs-extra'</span>);
 <span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
-<span class="hljs-keyword">var</span> optimizerConfig = fs.readJsonSync(process.argv[<span class="hljs-number">2</span>]);
-<span class="hljs-keyword">var</span> outputDir = optimizerConfig.fileWriter.outputDir;</pre></div></div>
+<span class="hljs-keyword">var</span> lassoConfig = fs.readJsonSync(process.argv[<span class="hljs-number">2</span>]);
+<span class="hljs-keyword">var</span> outputDir = lassoConfig.fileWriter.outputDir;</pre></div></div>
             
         </li>
         
@@ -113,27 +113,29 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>[
-    <span class="hljs-string">'tempdir'</span>,
-    <span class="hljs-string">'coverage'</span>,
-    <span class="hljs-string">'watch'</span>
+  <span class="hljs-string">'tempdir'</span>,
+  <span class="hljs-string">'coverage'</span>,
+  <span class="hljs-string">'watch'</span>,
+  <span class="hljs-string">'files'</span>,
+  <span class="hljs-string">'ignore'</span>
 ].forEach(
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(key)</span> </span>{
-        <span class="hljs-keyword">delete</span> optimizerConfig[key];
-    }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">delete</span> lassoConfig[key];
+  }
 );
 
-optimizer.configure(optimizerConfig);
-optimizer.optimizePage(
-    fs.readJsonSync(process.argv[<span class="hljs-number">3</span>]),
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(err, optimizedPage)</span> </span>{
-        <span class="hljs-keyword">if</span> (err) {
-            <span class="hljs-built_in">console</span>.error(err);
-            <span class="hljs-keyword">return</span> process.exit(<span class="hljs-number">1</span>);
-        }
-        <span class="hljs-keyword">var</span> initFile = path.resolve(
-            outputDir,
-            <span class="hljs-string">'file-'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">9999999</span>) + <span class="hljs-string">'.js'</span>
-        );</pre></div></div>
+lasso.configure(lassoConfig);
+lasso.lassoPage(
+  fs.readJsonSync(process.argv[<span class="hljs-number">3</span>]),
+  <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, optimizedPage</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) {
+      <span class="hljs-built_in">console</span>.error(err);
+      <span class="hljs-keyword">return</span> process.exit(<span class="hljs-number">1</span>);
+    }
+    <span class="hljs-keyword">var</span> initFile = path.resolve(
+      outputDir,
+      <span class="hljs-string">'file-'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">9999999</span>) + <span class="hljs-string">'.js'</span>
+    );</pre></div></div>
             
         </li>
         
@@ -145,15 +147,15 @@ optimizer.optimizePage(
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>we create a new file for inline javascripts so that it can be included as a separate
-script tag </p>
+script tag</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        fs.writeFileSync(initFile, optimizedPage.getBodyHtml().replace(<span class="hljs-regexp">/&lt;.*?&gt;/g</span>, <span class="hljs-string">''</span>).trim());
-        <span class="hljs-keyword">var</span> files = optimizedPage.getJavaScriptFiles();
-        files.push(initFile);
-        fs.outputJsonSync(process.argv[<span class="hljs-number">4</span>], files);
-    }
+            <div class="content"><div class='highlight'><pre>    fs.writeFileSync(initFile, optimizedPage.getBodyHtml().replace(<span class="hljs-regexp">/&lt;.*?&gt;/g</span>, <span class="hljs-string">''</span>).trim());
+    <span class="hljs-keyword">var</span> files = optimizedPage.getJavaScriptFiles();
+    files.push(initFile);
+    fs.outputJsonSync(process.argv[<span class="hljs-number">4</span>], files);
+  }
 );</pre></div></div>
             
         </li>
