@@ -36,6 +36,9 @@ npm install karma-lasso --save-dev
 
 ## Configuration
 
+**Make sure you include `lasso` is the first element in the frameworks array so that optimization happens before other
+frameworks add their sources in the source list.**
+
 The basic configuration for karma-lasso is detailed below:
 
 ### For Simple karma testing
