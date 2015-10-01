@@ -1,38 +1,38 @@
 {
-  "name": "karma-lasso",
-  "version": "1.0.0-rc1",
-  "description": "karma plugin for lasso",
-  "main": "lib",
-  "scripts": {
-    "test": "grunt test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lasso-js/karma-lasso.git"
-  },
-  "dependencies": {
-    "shelljs": "^0",
-    "fs-extra": "^0",
-    "istanbul": "^0",
-    "through": "^2",
-    "minimatch": "^2",
-    "chokidar": "^1"
-  },
-  "peerDependencies": {
-    "lasso": "^1",
-    "lasso-require": "^1"
-  },
-  "devDependencies": {
-    "grunt": "^0",
-    "grunt-contrib-jshint": "^0",
-    "grunt-docco": "^0",
-    "grunt-gh-pages": "^0"
-  },
-  "keywords": [
-    "karma",
-    "raptorjs",
-    "lasso"
-  ],
-  "author": "Pranav Jha <jha.pranav.s@gmail.com> (https://github.com/pranavjha)",
-  "license": "MIT"
+    "name": "karma-lasso",
+    "version": "1.0.0-rc1",
+    "description": "karma plugin for lasso",
+    "main": "lib",
+    "scripts": {
+        "test": "grunt test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lasso-js/karma-lasso.git"
+    },
+    "dependencies": {
+        "shelljs": "^0",
+        "fs-extra": "^0",
+        "istanbul": "^0",
+        "through": "^2",
+        "minimatch": "^2",
+        "chokidar": "^1"
+    },
+    "peerDependencies": {
+        "lasso": "^1",
+        "lasso-require": "^1"
+    },
+    "devDependencies": {
+        "grunt": "^0",
+        "grunt-contrib-jshint": "^0",
+        "grunt-docco": "^0",
+        "grunt-gh-pages": "^0"
+    },
+    "keywords": [
+        "karma",
+        "raptorjs",
+        "lasso"
+    ],
+    "author": "Pranav Jha <jha.pranav.s@gmail.com> (https://github.com/pranavjha)",
+    "license": "MIT"
 }
