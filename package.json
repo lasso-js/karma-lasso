@@ -20,7 +20,8 @@
   },
   "peerDependencies": {
     "lasso": "^1",
-    "lasso-require": "^1"
+    "lasso-require": "^1",
+    "app-module-path": "*"
   },
   "devDependencies": {
     "grunt": "^0",
