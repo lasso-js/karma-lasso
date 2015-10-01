@@ -156,7 +156,7 @@ This key will accept all the configurations that can be passed to the raptorjs l
 
 1. `tempdir` specifies the location of the directory where temporarily created files should be stored.
 
-2. `coverage` has the coverage configuration for the lasso. `coverage` can have the below keys
+1. `coverage` has the coverage configuration for the lasso. `coverage` can have the below keys
 
   - `defaultIgnore` - By default, all non javascript files and all files in `node_module`, `test` and `tests` folder are ignored. If `defaultIgnore` is set to false, these files will not be ignored by default. 
   
@@ -166,7 +166,7 @@ This key will accept all the configurations that can be passed to the raptorjs l
   
   - `reporters` - Used to specify the reporters to be used for coverage output. All Istanbul reporters are supported. Reporters can be an object if there is only one. Otherwise, you can pass an array. Each reporter will have a type and a dir key. The report will be generated in the directory specified in the dir key (one folder for each browser) 
 
-3. `watch` has the watch configuration for lasso.
+1. `watch` has the watch configuration for lasso.
 
   - `defaultIgnore` - By default, all files in `node_module` folder are ignored. If `defaultIgnore` is set to false, these files will not be ignored by default. 
   
@@ -174,7 +174,9 @@ This key will accept all the configurations that can be passed to the raptorjs l
 
   - `files` - A glob pattern or an array of glob patterns specifying which files to include for watch. If a file is not ignored, it is tested with this pattern(s). If this option is not set, anything that is not ignored will be watched.
 
-4. `ignore` - A glob pattern or an array of glob patterns specifying which files to not optimize.
+1. `ignore` - A glob pattern or an array of glob patterns specifying which files to not optimize.
 
-5. `files` - A glob pattern or an array of glob patterns specifying which files to include for optimization.
+1. `files` - A glob pattern or an array of glob patterns specifying which files to include for optimization.
+
+1. `moduleSearchPath` - if you are using the [`app-module-path`](https://www.npmjs.com/package/app-module-path) module, Set this key to a single path (`string`) or multiple paths (`array`). __Note: This module will not resolve the app-module-path dependency. If you are using this param, make sure `app-module-path` is added as a dependency in your module.__
 
