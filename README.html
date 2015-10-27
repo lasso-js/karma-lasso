@@ -16,43 +16,45 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="README.html">
-                README.md
-              </a>
-            
+                
+                <a class="source" href="README.html">
+                  README.md
+                </a>
               
-              <a class="source" href="framework.html">
-                framework.js
-              </a>
-            
+                
+                <a class="source" href="framework.html">
+                  framework.js
+                </a>
               
-              <a class="source" href="lasso-command.html">
-                lasso-command.js
-              </a>
-            
+                
+                <a class="source" href="lasso-command.html">
+                  lasso-command.js
+                </a>
               
-              <a class="source" href="index.html">
-                index.js
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.js
+                </a>
               
-              <a class="source" href="reporter.html">
-                reporter.js
-              </a>
-            
+                
+                <a class="source" href="reporter.html">
+                  reporter.js
+                </a>
               
-              <a class="source" href="coverage.html">
-                coverage.js
-              </a>
-            
+                
+                <a class="source" href="coverage.html">
+                  coverage.js
+                </a>
               
-              <a class="source" href="watcher.html">
-                watcher.js
-              </a>
-            
+                
+                <a class="source" href="watcher.html">
+                  watcher.js
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -221,6 +223,8 @@ dir: <span class="hljs-string">'./.coverage/html-client/'</span>
 <li><p><code>ignore</code> - A glob pattern or an array of glob patterns specifying which files to not optimize.</p>
 </li>
 <li><p><code>files</code> - A glob pattern or an array of glob patterns specifying which files to include for optimization.</p>
+</li>
+<li><p><code>moduleSearchPath</code> - if you are using the <a href="https://www.npmjs.com/package/app-module-path"><code>app-module-path</code></a> module, Set this key to a single path (<code>string</code>) or multiple paths (<code>array</code>). <strong>Note: This module will not resolve the app-module-path dependency. If you are using this param, make sure <code>app-module-path</code> is added as a dependency in your module.</strong></p>
 </li>
 </ol>
 

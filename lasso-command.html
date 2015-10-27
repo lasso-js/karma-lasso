@@ -16,43 +16,45 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="README.html">
-                README.md
-              </a>
-            
+                
+                <a class="source" href="README.html">
+                  README.md
+                </a>
               
-              <a class="source" href="framework.html">
-                framework.js
-              </a>
-            
+                
+                <a class="source" href="framework.html">
+                  framework.js
+                </a>
               
-              <a class="source" href="lasso-command.html">
-                lasso-command.js
-              </a>
-            
+                
+                <a class="source" href="lasso-command.html">
+                  lasso-command.js
+                </a>
               
-              <a class="source" href="index.html">
-                index.js
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.js
+                </a>
               
-              <a class="source" href="reporter.html">
-                reporter.js
-              </a>
-            
+                
+                <a class="source" href="reporter.html">
+                  reporter.js
+                </a>
               
-              <a class="source" href="coverage.html">
-                coverage.js
-              </a>
-            
+                
+                <a class="source" href="coverage.html">
+                  coverage.js
+                </a>
               
-              <a class="source" href="watcher.html">
-                watcher.js
-              </a>
-            
+                
+                <a class="source" href="watcher.html">
+                  watcher.js
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -77,6 +79,13 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>;
+<span class="hljs-keyword">if</span> (process.argv[<span class="hljs-number">6</span>]) {
+    process.argv[<span class="hljs-number">6</span>].split(<span class="hljs-string">','</span>).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path</span>) </span>{
+        <span class="hljs-keyword">if</span>(path) {
+            <span class="hljs-built_in">require</span>(<span class="hljs-string">'app-module-path'</span>).addPath(path);
+        }
+    });
+}
 <span class="hljs-keyword">var</span> lasso = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lasso'</span>);
 <span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs-extra'</span>);
 <span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
@@ -113,29 +122,30 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>[
-  <span class="hljs-string">'tempdir'</span>,
-  <span class="hljs-string">'coverage'</span>,
-  <span class="hljs-string">'watch'</span>,
-  <span class="hljs-string">'files'</span>,
-  <span class="hljs-string">'ignore'</span>
+    <span class="hljs-string">'tempdir'</span>,
+    <span class="hljs-string">'coverage'</span>,
+    <span class="hljs-string">'watch'</span>,
+    <span class="hljs-string">'files'</span>,
+    <span class="hljs-string">'ignore'</span>,
+    <span class="hljs-string">'moduleSearchPath'</span>
 ].forEach(
-  <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
-    <span class="hljs-keyword">delete</span> lassoConfig[key];
-  }
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key</span>) </span>{
+        <span class="hljs-keyword">delete</span> lassoConfig[key];
+    }
 );
 
 lasso.configure(lassoConfig);
 lasso.lassoPage(
-  fs.readJsonSync(process.argv[<span class="hljs-number">3</span>]),
-  <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, optimizedPage</span>) </span>{
-    <span class="hljs-keyword">if</span> (err) {
-      <span class="hljs-built_in">console</span>.error(err);
-      <span class="hljs-keyword">return</span> process.exit(<span class="hljs-number">1</span>);
-    }
-    <span class="hljs-keyword">var</span> initFile = path.resolve(
-      outputDir,
-      <span class="hljs-string">'file-'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">9999999</span>) + <span class="hljs-string">'.js'</span>
-    );</pre></div></div>
+    fs.readJsonSync(process.argv[<span class="hljs-number">3</span>]),
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, optimizedPage</span>) </span>{
+        <span class="hljs-keyword">if</span> (err) {
+            <span class="hljs-built_in">console</span>.error(err);
+            <span class="hljs-keyword">return</span> process.exit(<span class="hljs-number">1</span>);
+        }
+        <span class="hljs-keyword">var</span> initFile = path.resolve(
+            outputDir,
+            <span class="hljs-string">'file-'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">9999999</span>) + <span class="hljs-string">'.js'</span>
+        );</pre></div></div>
             
         </li>
         
@@ -151,11 +161,28 @@ script tag</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    fs.writeFileSync(initFile, optimizedPage.getBodyHtml().replace(<span class="hljs-regexp">/&lt;.*?&gt;/g</span>, <span class="hljs-string">''</span>).trim());
-    <span class="hljs-keyword">var</span> files = optimizedPage.getJavaScriptFiles();
-    files.push(initFile);
-    fs.outputJsonSync(process.argv[<span class="hljs-number">4</span>], files);
-  }
+            <div class="content"><div class='highlight'><pre>        fs.writeFileSync(initFile, optimizedPage.getBodyHtml().replace(<span class="hljs-regexp">/&lt;.*?&gt;/g</span>, <span class="hljs-string">''</span>).trim());
+        <span class="hljs-keyword">var</span> files = optimizedPage.getJavaScriptFiles();
+        files.push(initFile);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>adding css files as well as tests might need them</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> cssFiles = optimizedPage.getCSSFiles();
+        files = files.concat(cssFiles);
+
+        fs.outputJsonSync(process.argv[<span class="hljs-number">4</span>], files);
+    }
 );</pre></div></div>
             
         </li>

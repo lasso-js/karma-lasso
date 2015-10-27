@@ -16,43 +16,45 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="README.html">
-                README.md
-              </a>
-            
+                
+                <a class="source" href="README.html">
+                  README.md
+                </a>
               
-              <a class="source" href="framework.html">
-                framework.js
-              </a>
-            
+                
+                <a class="source" href="framework.html">
+                  framework.js
+                </a>
               
-              <a class="source" href="lasso-command.html">
-                lasso-command.js
-              </a>
-            
+                
+                <a class="source" href="lasso-command.html">
+                  lasso-command.js
+                </a>
               
-              <a class="source" href="index.html">
-                index.js
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.js
+                </a>
               
-              <a class="source" href="reporter.html">
-                reporter.js
-              </a>
-            
+                
+                <a class="source" href="reporter.html">
+                  reporter.js
+                </a>
               
-              <a class="source" href="coverage.html">
-                coverage.js
-              </a>
-            
+                
+                <a class="source" href="coverage.html">
+                  coverage.js
+                </a>
               
-              <a class="source" href="watcher.html">
-                watcher.js
-              </a>
-            
+                
+                <a class="source" href="watcher.html">
+                  watcher.js
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -113,10 +115,10 @@
             <div class="content"><div class='highlight'><pre>fs.outputJsonSync(fileName, []);
 
 <span class="hljs-keyword">var</span> defaultIgnore = [
-  <span class="hljs-string">'node_modules/**'</span>
+    <span class="hljs-string">'node_modules/**'</span>
 ];
 
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>{</pre></div></div>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -131,7 +133,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> watcherConfig = fs.readJsonSync(process.argv[<span class="hljs-number">2</span>]).watch || {};</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> watcherConfig = fs.readJsonSync(process.argv[<span class="hljs-number">2</span>]).watch || {};</pre></div></div>
             
         </li>
         
@@ -146,7 +148,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> files = [].concat(watcherConfig.files || []);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> files = [].concat(watcherConfig.files || []);</pre></div></div>
             
         </li>
         
@@ -161,10 +163,10 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> ignore = watcherConfig.defaultIgnore === <span class="hljs-literal">false</span> ? [] : defaultIgnore;
-  ignore = ignore.concat(watcherConfig.ignore || []);
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transform</span>(<span class="hljs-params">file</span>) </span>{
-    <span class="hljs-keyword">var</span> relativePath = path.relative(process.cwd(), file);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> ignore = watcherConfig.defaultIgnore === <span class="hljs-literal">false</span> ? [] : defaultIgnore;
+    ignore = ignore.concat(watcherConfig.ignore || []);
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transform</span>(<span class="hljs-params">file</span>) </span>{
+        <span class="hljs-keyword">var</span> relativePath = path.relative(process.cwd(), file);</pre></div></div>
             
         </li>
         
@@ -179,9 +181,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (ignore.some(minimatch.bind(<span class="hljs-literal">null</span>, relativePath))) {
-      <span class="hljs-keyword">return</span> through();
-    }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (ignore.some(minimatch.bind(<span class="hljs-literal">null</span>, relativePath))) {
+            <span class="hljs-keyword">return</span> through();
+        }</pre></div></div>
             
         </li>
         
@@ -196,9 +198,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (files.length &amp;&amp; !files.some(minimatch.bind(<span class="hljs-literal">null</span>, relativePath))) {
-      <span class="hljs-keyword">return</span> through();
-    }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (files.length &amp;&amp; !files.some(minimatch.bind(<span class="hljs-literal">null</span>, relativePath))) {
+            <span class="hljs-keyword">return</span> through();
+        }</pre></div></div>
             
         </li>
         
@@ -213,16 +215,16 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> arr = fs.readJsonSync(fileName);
-    arr.push(file);
-    fs.outputJsonSync(fileName, arr);
-    <span class="hljs-keyword">return</span> through();
-  }
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> arr = fs.readJsonSync(fileName);
+        arr.push(file);
+        fs.outputJsonSync(fileName, arr);
+        <span class="hljs-keyword">return</span> through();
+    }
 
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> name === <span class="hljs-string">'string'</span>) {
-    <span class="hljs-keyword">return</span> transform(name);
-  }
-  <span class="hljs-keyword">return</span> transform;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> name === <span class="hljs-string">'string'</span>) {
+        <span class="hljs-keyword">return</span> transform(name);
+    }
+    <span class="hljs-keyword">return</span> transform;
 };</pre></div></div>
             
         </li>
