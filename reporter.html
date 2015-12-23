@@ -78,7 +78,7 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>;
+            <div class="content"><div class='highlight'><pre><span class="hljs-meta">'use strict'</span>;
 <span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
 <span class="hljs-keyword">var</span> istanbul = <span class="hljs-built_in">require</span>(<span class="hljs-string">'istanbul'</span>);
 <span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);</pre></div></div>
@@ -99,12 +99,14 @@ takes the absolute file path which doesnt look good on coverage reports</p>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> makeRelative = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">coverage</span>) </span>{
     <span class="hljs-keyword">var</span> normalizedCoverage = {};
-    <span class="hljs-built_in">Object</span>.keys(coverage).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">filePath</span>) </span>{
-        <span class="hljs-keyword">var</span> val = coverage[filePath];
-        <span class="hljs-keyword">var</span> relativePath = path.relative(process.cwd(), filePath).replace(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">'/'</span>);
-        val.path = relativePath;
-        normalizedCoverage[relativePath] = val;
-    });
+    <span class="hljs-keyword">if</span>(coverage) {
+        <span class="hljs-built_in">Object</span>.keys(coverage).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">filePath</span>) </span>{
+            <span class="hljs-keyword">var</span> val = coverage[filePath];
+            <span class="hljs-keyword">var</span> relativePath = path.relative(process.cwd(), filePath).replace(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">'/'</span>);
+            val.path = relativePath;
+            normalizedCoverage[relativePath] = val;
+        });
+    }
     <span class="hljs-keyword">return</span> normalizedCoverage;
 };</pre></div></div>
             
