@@ -161,7 +161,8 @@ script tag</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        fs.writeFileSync(initFile, optimizedPage.getBodyHtml().replace(<span class="hljs-regexp">/&lt;.*?&gt;/g</span>, <span class="hljs-string">''</span>).trim());
+            <div class="content"><div class='highlight'><pre>        fs.ensureFileSync(initFile);
+        fs.writeFileSync(initFile, optimizedPage.getBodyHtml().replace(<span class="hljs-regexp">/&lt;.*?&gt;/g</span>, <span class="hljs-string">''</span>).trim());
         <span class="hljs-keyword">var</span> files = optimizedPage.getJavaScriptFiles();
         files.push(initFile);</pre></div></div>
             
