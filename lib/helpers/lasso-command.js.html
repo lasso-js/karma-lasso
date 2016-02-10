@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>lasso-command</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+        content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    
+    <link rel="stylesheet"
+        media="all"
+        href="../../assets/file_1.css"/>
+    
+    <link rel="stylesheet"
+        media="all"
+        href="../../assets/file_5.css"/>
+    
+    <link rel="stylesheet"
+        media="all"
+        href="../../assets/32px.png"/>
+    
+    <link rel="stylesheet"
+        media="all"
+        href="../../assets/40px.png"/>
+    
+    <link rel="stylesheet"
+        media="all"
+        href="../../assets/throbber.gif"/>
+    
+    <link rel="stylesheet"
+        media="all"
+        href="../../assets/file_7.css"/>
+    
+    <link rel="stylesheet"
+        media="all"
+        href="../../assets/file_8.css"/>
+    
+
+    
+    <script src="../../assets/file_2.js"
+        type="text/javascript"></script>
+    
+    <script src="../../assets/file_3.js"
+        type="text/javascript"></script>
+    
+    <script src="../../assets/file_4.js"
+        type="text/javascript"></script>
+    
+    <script src="../../assets/file_6.js"
+        type="text/javascript"></script>
+    
+
+    <script type="application/json" id="jsTreeJSON">
+        [{"id":"lib","text":"lib","icon":"jstree-folder","parent":"#","a_attr":{"href":".."},"state":{"opened":true}},{"id":"lib/framework.js","text":"framework.js","icon":"jstree-file","parent":"lib","a_attr":{"href":"../framework.js.html"},"state":{"selected":false}},{"id":"lib/helpers","text":"helpers","icon":"jstree-folder","parent":"lib","a_attr":{"href":"."},"state":{"opened":true}},{"id":"lib/helpers/lasso-command.js","text":"lasso-command.js","icon":"jstree-file","parent":"lib/helpers","a_attr":{"href":"lasso-command.js.html"},"state":{"selected":true}},{"id":"lib/index.js","text":"index.js","icon":"jstree-file","parent":"lib","a_attr":{"href":"../index.js.html"},"state":{"selected":false}},{"id":"lib/reporter.js","text":"reporter.js","icon":"jstree-file","parent":"lib","a_attr":{"href":"../reporter.js.html"},"state":{"selected":false}},{"id":"lib/transforms","text":"transforms","icon":"jstree-folder","parent":"lib","a_attr":{"href":"../transforms"},"state":{"opened":false}},{"id":"lib/transforms/coverage.js","text":"coverage.js","icon":"jstree-file","parent":"lib/transforms","a_attr":{"href":"../transforms/coverage.js.html"},"state":{"selected":false}},{"id":"lib/transforms/watcher.js","text":"watcher.js","icon":"jstree-file","parent":"lib/transforms","a_attr":{"href":"../transforms/watcher.js.html"},"state":{"selected":false}},{"id":"README.md","text":"README.md","icon":"jstree-file","parent":"#","a_attr":{"href":"../../README.md.html"},"state":{"selected":false}}]
+    </script>
+</head>
+<body class="markdown-body">
+<h1>
+    lasso-command
+</h1>
+<div class="subHeading">
+    lib/helpers/lasso-command.js
+</div>
+<button type="button" class="navigatorToggle">&#9776; files...</button>
+<nav class="navigationTree minimized">
+    <input type="text" id="jsTreeSearch" placeholder="search..."/>
+    <div></div>
+</nav>
+<section>
+    <ul class="sectionDetails ">
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+                
+            </div><div class="content">
+                <div class="highlight"><pre><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">if</span> (process.argv[<span class="hljs-number">6</span>]) {
+    process.argv[<span class="hljs-number">6</span>].split(<span class="hljs-string">','</span>).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path</span>) </span>{
+        <span class="hljs-keyword">if</span> (path) {
+            <span class="hljs-built_in">require</span>(<span class="hljs-string">'app-module-path'</span>).addPath(path);
+        }
+    });
+}
+<span class="hljs-keyword">var</span> lasso = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lasso'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs-extra'</span>);
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">var</span> lassoConfig = fs.readJsonSync(process.argv[<span class="hljs-number">2</span>]);
+<span class="hljs-keyword">var</span> outputDir = lassoConfig.fileWriter.outputDir;</pre></div>
+            </div>
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+                <p> clear out the cache. If we don’t do this, coverage and watch breaks</p>
+
+            </div><div class="content">
+                <div class="highlight"><pre>fs.removeSync(<span class="hljs-string">'./.cache'</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\t Saving optimization output to: '</span> + outputDir);</pre></div>
+            </div>
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+                <p> get rid of the non standard configs</p>
+
+            </div><div class="content">
+                <div class="highlight"><pre>[
+    <span class="hljs-string">'tempdir'</span>,
+    <span class="hljs-string">'coverage'</span>,
+    <span class="hljs-string">'watch'</span>,
+    <span class="hljs-string">'files'</span>,
+    <span class="hljs-string">'ignore'</span>,
+    <span class="hljs-string">'moduleSearchPath'</span>
+].forEach(
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key</span>) </span>{
+        <span class="hljs-keyword">delete</span> lassoConfig[key];
+    }
+);
+
+lasso.configure(lassoConfig);
+lasso.lassoPage(
+    fs.readJsonSync(process.argv[<span class="hljs-number">3</span>]),
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, optimizedPage</span>) </span>{
+        <span class="hljs-keyword">if</span> (err) {
+            <span class="hljs-built_in">console</span>.error(err);
+            <span class="hljs-keyword">return</span> process.exit(<span class="hljs-number">1</span>);
+        }
+        <span class="hljs-keyword">var</span> initFile = path.resolve(
+            outputDir,
+            <span class="hljs-string">'file-'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">9999999</span>) + <span class="hljs-string">'.js'</span>
+        );</pre></div>
+            </div>
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+                <p> we create a new file for inline javascripts so that it can be included as a separate
+ script tag</p>
+
+            </div><div class="content">
+                <div class="highlight"><pre>        fs.ensureFileSync(initFile);
+        fs.writeFileSync(initFile, optimizedPage.getBodyHtml().replace(<span class="hljs-regexp">/&lt;.*?&gt;/g</span>, <span class="hljs-string">''</span>).trim());
+        <span class="hljs-keyword">var</span> files = optimizedPage.getJavaScriptFiles();
+        files.push(initFile);</pre></div>
+            </div>
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+                <p> adding css files as well as tests might need them</p>
+
+            </div><div class="content">
+                <div class="highlight"><pre>        <span class="hljs-keyword">var</span> cssFiles = optimizedPage.getCSSFiles();
+        files = files.concat(cssFiles);
+
+        fs.outputJsonSync(process.argv[<span class="hljs-number">4</span>], files);
+        process.exit(<span class="hljs-number">0</span>);
+    }
+);</pre></div>
+            </div>
+        </li>
+        
+    </ul>
+</section>
+</body>
+</html>
