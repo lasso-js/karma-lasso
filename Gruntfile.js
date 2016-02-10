@@ -75,7 +75,7 @@ module.exports = function(grunt) {
             src: [
                 '**'
             ]
-        },
+        }
     });
     grunt.registerTask('test', [
         'jshint'
