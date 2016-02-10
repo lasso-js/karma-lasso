@@ -25,7 +25,7 @@
     "devDependencies": {
         "grunt": "^0",
         "grunt-contrib-jshint": "^0",
-        "grunt-docco": "^0",
+        "grunt-docco-plus": "^2",
         "grunt-gh-pages": "^0"
     },
     "keywords": [

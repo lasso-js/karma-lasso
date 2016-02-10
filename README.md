@@ -1,9 +1,11 @@
-[![Build Status](https://travis-ci.org/lasso-js/karma-lasso.svg)](https://travis-ci.org/lasso-js/karma-lasso)
-[![Code Climate](https://codeclimate.com/github/lasso-js/karma-lasso/badges/gpa.svg)](https://codeclimate.com/github/lasso-js/karma-lasso)
+[![Build Status](https://img.shields.io/travis/lasso-js/karma-lasso.svg?style=flat-square)](https://travis-ci.org/lasso-js/karma-lasso)
+[![Code Climate](https://img.shields.io/codeclimate/github/lasso-js/karma-lasso.svg?style=flat-square)](https://codeclimate.com/github/lasso-js/karma-lasso)
+[![Documentation](https://img.shields.io/badge/documentation-plus-green.svg?style=flat-square)](http://lasso-js.github.io/karma-lasso/)
 
-[![Dependency Status](https://david-dm.org/lasso-js/karma-lasso.svg)](https://david-dm.org/lasso-js/karma-lasso)
-[![devDependency Status](https://david-dm.org/lasso-js/karma-lasso/dev-status.svg)](https://david-dm.org/lasso-js/karma-lasso#info=devDependencies)
-[![peerDependency Status](https://david-dm.org/lasso-js/karma-lasso/peer-status.svg)](https://david-dm.org/lasso-js/karma-lasso#info=peerDependencies)
+[![Dependency Status](https://img.shields.io/david/lasso-js/karma-lasso.svg?style=flat-square)](https://david-dm.org/lasso-js/karma-lasso)
+[![devDependency Status](https://img.shields.io/david/dev/lasso-js/karma-lasso.svg?style=flat-square)](https://david-dm.org/lasso-js/karma-lasso#info=devDependencies)
+[![peerDependency Status](https://img.shields.io/david/peer/lasso-js/karma-lasso.svg?style=flat-square)](https://david-dm.org/lasso-js/karma-lasso#info=peerDependencies)
+
 
 # karma-lasso
 
@@ -58,9 +60,8 @@ module.exports = function (config) {
         // 1. specify the config to be passed to lasso in the lasso key
         lasso: {
             plugins: [
-                'i18n-ebay/lasso/plugin',
                 'lasso-less',
-                'lasso-dust',
+                'lasso-marko',
             ],
             minify: false,
             bundlingEnabled: false,
@@ -110,9 +111,8 @@ module.exports = function (config) {
         // 2. specify the config to be passed to lasso in the lasso key
         lasso: {
             plugins: [
-                'i18n-ebay/lasso/plugin',
                 'lasso-less',
-                'lasso-dust',
+                'lasso-marko',
             ],
             minify: false,
             bundlingEnabled: false,

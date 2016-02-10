@@ -30,7 +30,7 @@ var jshintOptions = {
 module.exports = function(grunt) {
     // loading the npm task
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-docco');
+    grunt.loadNpmTasks('grunt-docco-plus');
     grunt.loadNpmTasks('grunt-gh-pages');
     // Project configuration.
     grunt.initConfig({
@@ -39,17 +39,19 @@ module.exports = function(grunt) {
             lib: {
                 src: [
                     'lib/**/*.js',
+                    'test/**/*.js',
                     'Gruntfile.js',
                     'package.json'
                 ],
                 options: jshintOptions
             }
         },
-        docco: {
+        'docco-plus': {
             debug: {
                 src: [
                     'lib/**',
-                    'README.md'
+                    'test/**',
+                    '*.md'
                 ],
                 options: {
                     output: '.docs/'
@@ -60,25 +62,25 @@ module.exports = function(grunt) {
             options: {
                 base: '.docs',
                 // GH_TOKEN is the environment variable holding the access token for the repository
-                repo: 'https://' + process.env.GH_TOKEN + '@github.com/lasso-js/karma-lasso.git',
+                repo: 'https://' + process.env.GH_TOKEN + '@github.com/' + process.env.TRAVIS_REPO_SLUG + '.git',
                 clone: '.gh_pages',
-                message: 'auto commit karma-lasso on <%= grunt.template.today("yyyy-mm-dd") %>',
+                message: 'build #' + process.env.TRAVIS_BUILD_NUMBER + ' travis commit',
                 // This configuration will suppress logging and sanitize error messages.
                 silent: true,
                 user: {
-                    name: 'Pranav Jha',
-                    email: 'jha.pranav.s@gmail.com'
+                    name: 'travis',
+                    email: 'travis@travis-ci.com'
                 }
             },
             src: [
                 '**'
             ]
-        }
+        },
     });
     grunt.registerTask('test', [
         'jshint'
     ]);
     grunt.registerTask('document', [
-        'docco'
+        'docco-plus'
     ]);
 };
