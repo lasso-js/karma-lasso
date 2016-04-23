@@ -1,6 +1,6 @@
 {
     "name": "karma-lasso",
-    "version": "1.0.7",
+    "version": "2.0.0",
     "description": "karma plugin for lasso",
     "main": "lib",
     "scripts": {
@@ -19,7 +19,7 @@
         "chokidar": "^1"
     },
     "peerDependencies": {
-        "lasso": "^1",
+        "lasso": "^2",
         "lasso-require": "^1"
     },
     "devDependencies": {
