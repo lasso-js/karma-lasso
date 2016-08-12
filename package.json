@@ -20,7 +20,7 @@
     },
     "peerDependencies": {
         "lasso": "^2",
-        "lasso-require": "^1"
+        "lasso-require": ">=1"
     },
     "devDependencies": {
         "grunt": "^0",
