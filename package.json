@@ -1,6 +1,6 @@
 {
     "name": "karma-lasso",
-    "version": "2.0.2",
+    "version": "3.0.0",
     "description": "karma plugin for lasso",
     "main": "lib",
     "scripts": {
@@ -15,7 +15,7 @@
         "fs-extra": "^0",
         "istanbul": "^0",
         "through": "^2",
-        "minimatch": "^2",
+        "minimatch": "^3",
         "chokidar": "^1"
     },
     "peerDependencies": {
@@ -23,10 +23,10 @@
         "lasso-require": ">=1"
     },
     "devDependencies": {
-        "grunt": "^0",
-        "grunt-contrib-jshint": "^0",
-        "grunt-docco-plus": "^2",
-        "grunt-gh-pages": "^0"
+        "grunt": "^1",
+        "grunt-contrib-jshint": "^1",
+        "grunt-docco-plus": "^3",
+        "grunt-gh-pages": "^2"
     },
     "keywords": [
         "karma",
