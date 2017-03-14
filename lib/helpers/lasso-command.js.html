@@ -77,7 +77,11 @@
 <span class="hljs-keyword">if</span> (process.argv[<span class="hljs-number">6</span>]) {
     process.argv[<span class="hljs-number">6</span>].split(<span class="hljs-string">','</span>).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path</span>) </span>{
         <span class="hljs-keyword">if</span> (path) {
-            <span class="hljs-built_in">require</span>(<span class="hljs-string">'app-module-path'</span>).addPath(path);
+            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'app-module-path'</span>)) {
+                <span class="hljs-built_in">require</span>(<span class="hljs-string">'app-module-path'</span>).addPath(path);
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'require-self-ref'</span>)) {
+                <span class="hljs-built_in">require</span>(<span class="hljs-string">'require-self-ref'</span>);
+            }
         }
     });
 }

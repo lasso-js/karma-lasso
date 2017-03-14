@@ -102,9 +102,9 @@
 
             </div><div class="content">
                 <div class="highlight"><pre>    config.lasso.fileWriter = {
-        outputDir: config.lasso.tempdir + <span class="hljs-string">'/static'</span>,
+        <span class="hljs-attr">outputDir</span>: config.lasso.tempdir + <span class="hljs-string">'/static'</span>,
         <span class="hljs-string">'url-prefix'</span>: <span class="hljs-string">'/static'</span>,
-        fingerprintsEnabled: <span class="hljs-literal">false</span>
+        <span class="hljs-attr">fingerprintsEnabled</span>: <span class="hljs-literal">false</span>
     };</pre></div>
             </div>
         </li>
@@ -116,9 +116,9 @@
 
             </div><div class="content">
                 <div class="highlight"><pre>    <span class="hljs-keyword">var</span> requirePlugin = {
-        plugin: <span class="hljs-string">'lasso-require'</span>,
-        config: {
-            transforms: []
+        <span class="hljs-attr">plugin</span>: <span class="hljs-string">'lasso-require'</span>,
+        <span class="hljs-attr">config</span>: {
+            <span class="hljs-attr">transforms</span>: []
         }
     };
     <span class="hljs-keyword">var</span> pluginIndex = <span class="hljs-number">0</span>;
@@ -145,7 +145,7 @@
                 <div class="highlight"><pre>    config.lasso.plugins.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">plugin, index</span>) </span>{
         <span class="hljs-keyword">if</span> (plugin === <span class="hljs-string">'lasso-require'</span>) {
             requirePlugin = {
-                plugin: <span class="hljs-string">'lasso-require'</span>
+                <span class="hljs-attr">plugin</span>: <span class="hljs-string">'lasso-require'</span>
             };
             pluginIndex = index;
             spliceCount = <span class="hljs-number">1</span>;
@@ -341,8 +341,8 @@
     fs.outputJsonSync(
         lassoPath,
         {
-            name: <span class="hljs-string">'index'</span>,
-            dependencies: dependencies
+            <span class="hljs-attr">name</span>: <span class="hljs-string">'index'</span>,
+            <span class="hljs-attr">dependencies</span>: dependencies
         }
     );</pre></div>
             </div>
@@ -384,10 +384,10 @@
             </div><div class="content">
                 <div class="highlight"><pre>    config.files.push.apply(config.files, fs.readJsonSync(outputPath).map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path</span>) </span>{
         <span class="hljs-keyword">return</span> {
-            pattern: path,
-            served: <span class="hljs-literal">true</span>,
-            included: <span class="hljs-literal">true</span>,
-            watched: <span class="hljs-literal">true</span>
+            <span class="hljs-attr">pattern</span>: path,
+            <span class="hljs-attr">served</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">included</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">watched</span>: <span class="hljs-literal">true</span>
         };
     }));</pre></div>
             </div>

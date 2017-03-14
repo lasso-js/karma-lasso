@@ -104,22 +104,22 @@ frameworks add their sources in the source list.</strong></p>
 <span class="hljs-comment">// karma.conf.js</span>
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">config</span>) </span>{
     config.set({
-        browsers: [
+        <span class="hljs-attr">browsers</span>: [
             <span class="hljs-string">'PhantomJS'</span>
         ],
-        reporters: [
+        <span class="hljs-attr">reporters</span>: [
             <span class="hljs-string">'mocha'</span>
         ],
         <span class="hljs-comment">// 1. specify the config to be passed to lasso in the lasso key</span>
         lasso: {
-            plugins: [
+            <span class="hljs-attr">plugins</span>: [
                 <span class="hljs-string">'lasso-less'</span>,
                 <span class="hljs-string">'lasso-marko'</span>,
             ],
-            minify: <span class="hljs-literal">false</span>,
-            bundlingEnabled: <span class="hljs-literal">false</span>,
-            resolveCssUrls: <span class="hljs-literal">true</span>,
-            cacheProfile: <span class="hljs-string">'development'</span>,
+            <span class="hljs-attr">minify</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">bundlingEnabled</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">resolveCssUrls</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">cacheProfile</span>: <span class="hljs-string">'development'</span>,
             <span class="hljs-comment">// 2. tempdir is the directory where all the generated files will be stored.</span>
             tempdir: <span class="hljs-string">'./.test'</span>
         },
@@ -147,7 +147,7 @@ frameworks add their sources in the source list.</strong></p>
 <span class="hljs-comment">// karma.conf.js</span>
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">config</span>) </span>{
     config.set({
-        browsers: [
+        <span class="hljs-attr">browsers</span>: [
             <span class="hljs-string">'PhantomJS'</span>
         ],
         <span class="hljs-comment">// 1. for generating coverage reports, add lasso as a reporter in config</span>
@@ -157,14 +157,14 @@ frameworks add their sources in the source list.</strong></p>
         ],
         <span class="hljs-comment">// 2. specify the config to be passed to lasso in the lasso key</span>
         lasso: {
-            plugins: [
+            <span class="hljs-attr">plugins</span>: [
                 <span class="hljs-string">'lasso-less'</span>,
                 <span class="hljs-string">'lasso-marko'</span>,
             ],
-            minify: <span class="hljs-literal">false</span>,
-            bundlingEnabled: <span class="hljs-literal">false</span>,
-            resolveCssUrls: <span class="hljs-literal">true</span>,
-            cacheProfile: <span class="hljs-string">'development'</span>,     
+            <span class="hljs-attr">minify</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">bundlingEnabled</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">resolveCssUrls</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">cacheProfile</span>: <span class="hljs-string">'development'</span>,     
             <span class="hljs-comment">// 3. tempdir is the directory where all the generated files will be stored.</span>
             tempdir: <span class="hljs-string">'./.coverage'</span>,
             <span class="hljs-comment">// 4. to enable coverage, the coverage key should be added in the lasso config</span>
@@ -179,12 +179,12 @@ frameworks add their sources in the source list.</strong></p>
                 <span class="hljs-comment">// (one folder for each browser) </span>
                 reporters: [
                     {
-                        type: <span class="hljs-string">'json'</span>,
-                        dir: <span class="hljs-string">'./.coverage/json/'</span>
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'json'</span>,
+                        <span class="hljs-attr">dir</span>: <span class="hljs-string">'./.coverage/json/'</span>
                     },
                     {
-                        type: <span class="hljs-string">'html'</span>,
-                        dir: <span class="hljs-string">'./.coverage/html-client/'</span>
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'html'</span>,
+                        <span class="hljs-attr">dir</span>: <span class="hljs-string">'./.coverage/html-client/'</span>
                     }
                 ]
             }
