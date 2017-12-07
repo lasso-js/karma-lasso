@@ -19,8 +19,7 @@
         "chokidar": "^1"
     },
     "peerDependencies": {
-        "lasso": ">=2",
-        "lasso-require": ">=1"
+        "lasso": ">=3"
     },
     "devDependencies": {
         "grunt": "^1",
