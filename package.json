@@ -1,6 +1,6 @@
 {
     "name": "karma-lasso",
-    "version": "3.0.1",
+    "version": "4.0.0",
     "description": "karma plugin for lasso",
     "main": "lib",
     "scripts": {
