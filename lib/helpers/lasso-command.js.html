@@ -124,8 +124,13 @@
 );
 
 lasso.configure(lassoConfig);
-lasso.lassoPage(fs.readJsonSync(process.argv[<span class="hljs-number">3</span>])).then(
-    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">optimizedPage</span>) </span>{
+lasso.lassoPage(
+    fs.readJsonSync(process.argv[<span class="hljs-number">3</span>]),
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, optimizedPage</span>) </span>{
+        <span class="hljs-keyword">if</span> (err) {
+            <span class="hljs-built_in">console</span>.error(err);
+            <span class="hljs-keyword">return</span> process.exit(<span class="hljs-number">1</span>);
+        }
         <span class="hljs-keyword">var</span> initFile = path.resolve(
             outputDir,
             <span class="hljs-string">'file-'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">9999999</span>) + <span class="hljs-string">'.js'</span>
@@ -158,11 +163,6 @@ lasso.lassoPage(fs.readJsonSync(process.argv[<span class="hljs-number">3</span>]
 
         fs.outputJsonSync(process.argv[<span class="hljs-number">4</span>], files);
         process.exit(<span class="hljs-number">0</span>);
-    }
-).catch(
-    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
-        <span class="hljs-built_in">console</span>.error(err);
-        <span class="hljs-keyword">return</span> process.exit(<span class="hljs-number">1</span>);
     }
 );</pre></div>
             </div>
