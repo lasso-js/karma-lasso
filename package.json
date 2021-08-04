@@ -11,12 +11,13 @@
         "url": "https://github.com/lasso-js/karma-lasso.git"
     },
     "dependencies": {
-        "shelljs": "0.5.3",
+        "chokidar": "^1",
         "fs-extra": "^0",
         "istanbul": "^0",
-        "through": "^2",
+        "istanbul-lib-instrument": "^4.0.3",
         "minimatch": "^3",
-        "chokidar": "^1"
+        "shelljs": "0.5.3",
+        "through": "^2"
     },
     "peerDependencies": {
         "lasso": ">=3"
