@@ -16,7 +16,7 @@
         "istanbul": "^0",
         "istanbul-lib-instrument": "^4.0.3",
         "minimatch": "^3",
-        "shelljs": "0.5.3",
+        "shelljs": "0.8.5",
         "through": "^2"
     },
     "peerDependencies": {
